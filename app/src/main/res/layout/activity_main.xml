@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.apphouse.businessscheduler.MainActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/calendarView"
+    <android.support.constraint.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:mcv_selectionColor="#00F"
-        app:mcv_showOtherDates="all" />
+        android:layout_height="match_parent"
+        tools:context="com.example.bjj10.practice.main.MainActivity">
 
-</android.support.constraint.ConstraintLayout>
+        <FrameLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="200dp"
+            ></FrameLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
