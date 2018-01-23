@@ -10,6 +10,10 @@ import android.widget.Toast;
 
 import com.apphouse.businessscheduler.R;
 import com.apphouse.businessscheduler.databinding.FragmentMainBinding;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.DayViewFacade;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 public class MainFragment extends Fragment implements MainContract.View {
 
@@ -31,8 +35,17 @@ public class MainFragment extends Fragment implements MainContract.View {
                              Bundle savedInstanceState) {
         FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         View fragmentView = binding.getRoot();
-
+        initView(binding);
         return fragmentView;
+    }
+
+    private void initView(FragmentMainBinding binding) {
+        initCalendarView(binding.calendarView);
+    }
+
+    private void initCalendarView(MaterialCalendarView calendarView) {
+        calendarView.setTileHeightDp(60);
+
     }
 
     public static MainFragment newInstance() {
