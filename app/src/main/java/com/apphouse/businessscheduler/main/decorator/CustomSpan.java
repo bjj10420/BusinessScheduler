@@ -9,7 +9,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.apphouse.businessscheduler.util.Util;
 
 
@@ -46,13 +45,34 @@ public class CustomSpan implements LineBackgroundSpan {
 
     private LinearLayout initRowLayout() {
         LinearLayout rowLayout = new LinearLayout(context);
+        LinearLayout.LayoutParams rowLayoutParams = initRowLayoutParam();
+        setRowLayoutBasicOptions(rowLayout, rowLayoutParams);
+        return rowLayout;
+    }
+
+    private LinearLayout.LayoutParams initRowLayoutParam() {
         LinearLayout.LayoutParams rowLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
+        return  rowLayoutParams;
+    }
+
+    private void setRowLayoutBasicOptions(LinearLayout rowLayout,
+                                          LinearLayout.LayoutParams rowLayoutParams) {
         rowLayout.setOrientation(LinearLayout.VERTICAL);
         rowLayout.setLayoutParams(rowLayoutParams);
         rowLayout.setPadding(0, (int) Util.convertDpToPixel(15.0f), 0, 0);
-        return rowLayout;
+
+    }
+
+    private void fillRowLayout(LinearLayout rowLayout) {
+        makeTextViewAndSpendToRowLayout("옷홍옷", rowLayout);
+        makeTextViewAndSpendToRowLayout("테스트2", rowLayout);
+        makeTextViewAndSpendToRowLayout("테스트3", rowLayout);
+        makeTextViewAndSpendToRowLayout("테스트4", rowLayout);
+        makeTextViewAndSpendToRowLayout("테스트5", rowLayout);
+
+
     }
 
     private void drawRowLayoutOnTheCanvas(LinearLayout rowLayout, Canvas canvas, Paint paint) {
@@ -64,11 +84,6 @@ public class CustomSpan implements LineBackgroundSpan {
         rowLayout.layout(0, 0, rowLayout.getMeasuredWidth(), rowLayout.getMeasuredHeight());
         canvas.drawBitmap(rowLayout.getDrawingCache(), 0, 0, paint);
         rowLayout.setDrawingCacheEnabled(false);
-    }
-
-    private void fillRowLayout(LinearLayout rowLayout) {
-        makeTextViewAndSpendToRowLayout("옷홍옷", rowLayout);
-        makeTextViewAndSpendToRowLayout("테스트2", rowLayout);
     }
 
     private void makeTextViewAndSpendToRowLayout(String content, LinearLayout rowLayout) {
