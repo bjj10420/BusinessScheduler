@@ -39,8 +39,7 @@ public class OneDayDecorator implements DayViewDecorator {
     public void decorate(DayViewFacade view) {
 //        view.addSpan(new StyleSpan(Typeface.BOLD));
 //        view.addSpan(new RelativeSizeSpan(1.4f));
-//        view.setBackgroundDrawable(context.getDrawable(R.drawable.ic_launcher_background));
-        view.addSpan(new CustomSpan(5, Color.parseColor("#404040"), context));
+          view.addSpan(new CustomSpan(Color.parseColor("#404040"), context));
     }
 
     /**

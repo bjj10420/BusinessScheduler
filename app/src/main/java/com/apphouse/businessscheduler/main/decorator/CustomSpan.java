@@ -5,35 +5,20 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.style.LineBackgroundSpan;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.apphouse.businessscheduler.util.Util;
 
 
 public class CustomSpan implements LineBackgroundSpan {
 
     Context context;
-    public static final float DEFAULT_RADIUS = 3;
-    private final float radius;
     private final int color;
 
-    public CustomSpan() {
-        this.radius = DEFAULT_RADIUS;
-        this.color = 0;
-    }
-
-    public CustomSpan(int color) {
-        this.radius = DEFAULT_RADIUS;
-        this.color = color;
-    }
-
-    public CustomSpan(float radius) {
-        this.radius = radius;
-        this.color = 0;
-    }
-
-
-    public CustomSpan(float radius, int color, Context context) {
-        this.radius = radius;
+    public CustomSpan(int color, Context context) {
         this.color = color;
         this.context = context;
     }
@@ -49,28 +34,50 @@ public class CustomSpan implements LineBackgroundSpan {
         if (color != 0) {
             paint.setColor(color);
         }
-//        canvas.drawCircle((left + right) / 2, bottom + radius, radius, paint);
-//        canvas.drawText("테스트", (left + right) / 2, bottom, paint);
+        makeRowLayout(canvas, paint);
+        paint.setColor(oldColor);
+    }
 
-        TextView tv = new TextView(context);
-        tv.setTextSize(8);
-        tv.setText(" 테스트 \n 하이영");
-        tv.setTextColor(Color.BLACK);
-        tv.setDrawingCacheEnabled(true);
-        tv.measure(View.MeasureSpec.makeMeasureSpec(
+    private void makeRowLayout(Canvas canvas, Paint paint) {
+        LinearLayout rowLayout = initRowLayout();
+        fillRowLayout(rowLayout);
+        drawRowLayoutOnTheCanvas(rowLayout, canvas, paint);
+    }
+
+    private LinearLayout initRowLayout() {
+        LinearLayout rowLayout = new LinearLayout(context);
+        LinearLayout.LayoutParams rowLayoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        rowLayout.setOrientation(LinearLayout.VERTICAL);
+        rowLayout.setLayoutParams(rowLayoutParams);
+        rowLayout.setPadding(0, (int) Util.convertDpToPixel(15.0f), 0, 0);
+        return rowLayout;
+    }
+
+    private void drawRowLayoutOnTheCanvas(LinearLayout rowLayout, Canvas canvas, Paint paint) {
+        rowLayout.setDrawingCacheEnabled(true);
+        rowLayout.measure(View.MeasureSpec.makeMeasureSpec(
                 canvas.getWidth(), View.MeasureSpec.EXACTLY),
                 View.MeasureSpec.makeMeasureSpec(canvas.getHeight(),
                         View.MeasureSpec.EXACTLY));
-        tv.layout(0, 0, tv.getMeasuredWidth(), tv.getMeasuredHeight());
+        rowLayout.layout(0, 0, rowLayout.getMeasuredWidth(), rowLayout.getMeasuredHeight());
+        canvas.drawBitmap(rowLayout.getDrawingCache(), 0, 0, paint);
+        rowLayout.setDrawingCacheEnabled(false);
+    }
 
-        // draw the bitmap from the drawingcache to the canvas
-        canvas.drawBitmap(tv.getDrawingCache(), 0, 0, paint);
+    private void fillRowLayout(LinearLayout rowLayout) {
+        makeTextViewAndSpendToRowLayout("옷홍옷", rowLayout);
+        makeTextViewAndSpendToRowLayout("테스트2", rowLayout);
+    }
 
-        // disable drawing cache
-        tv.setDrawingCacheEnabled(false);
-
-
-        paint.setColor(oldColor);
+    private void makeTextViewAndSpendToRowLayout(String content, LinearLayout rowLayout) {
+        TextView tv = new TextView(context);
+        tv.setGravity(Gravity.CENTER);
+        tv.setTextSize(8);
+        tv.setText(content);
+        tv.setTextColor(Color.BLACK);
+        rowLayout.addView(tv);
     }
 }
 
