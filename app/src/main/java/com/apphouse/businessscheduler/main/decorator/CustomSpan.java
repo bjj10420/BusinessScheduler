@@ -62,7 +62,6 @@ public class CustomSpan implements LineBackgroundSpan {
         rowLayout.setOrientation(LinearLayout.VERTICAL);
         rowLayout.setLayoutParams(rowLayoutParams);
         rowLayout.setPadding(0, (int) Util.convertDpToPixel(15.0f), 0, 0);
-
     }
 
     private void fillRowLayout(LinearLayout rowLayout) {
@@ -71,8 +70,6 @@ public class CustomSpan implements LineBackgroundSpan {
         makeTextViewAndSpendToRowLayout("테스트3", rowLayout);
         makeTextViewAndSpendToRowLayout("테스트4", rowLayout);
         makeTextViewAndSpendToRowLayout("테스트5", rowLayout);
-
-
     }
 
     private void drawRowLayoutOnTheCanvas(LinearLayout rowLayout, Canvas canvas, Paint paint) {
