@@ -46,7 +46,7 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     private void initCalendarView(MaterialCalendarView calendarView) {
         calendarView.setTileHeightDp(60);
-        calendarView.addDecorator(new OneDayDecorator());
+        calendarView.addDecorator(new OneDayDecorator(getContext()));
     }
 
     public static MainFragment newInstance() {
