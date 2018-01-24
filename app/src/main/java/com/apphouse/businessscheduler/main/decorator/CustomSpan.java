@@ -53,23 +53,14 @@ public class CustomSpan implements LineBackgroundSpan {
 //        canvas.drawText("테스트", (left + right) / 2, bottom, paint);
 
         TextView tv = new TextView(context);
-
-        // setup text
-        tv.setText("테스트");
-
-        // maybe set textcolor
+        tv.setTextSize(8);
+        tv.setText(" 테스트 \n 하이영");
         tv.setTextColor(Color.BLACK);
-
-        // you have to enable setDrawingCacheEnabled, or the getDrawingCache will return null
         tv.setDrawingCacheEnabled(true);
-
-        // we need to setup how big the view should be..which is exactly as big as the canvas
         tv.measure(View.MeasureSpec.makeMeasureSpec(
                 canvas.getWidth(), View.MeasureSpec.EXACTLY),
                 View.MeasureSpec.makeMeasureSpec(canvas.getHeight(),
                         View.MeasureSpec.EXACTLY));
-
-        // assign the layout values to the textview
         tv.layout(0, 0, tv.getMeasuredWidth(), tv.getMeasuredHeight());
 
         // draw the bitmap from the drawingcache to the canvas
