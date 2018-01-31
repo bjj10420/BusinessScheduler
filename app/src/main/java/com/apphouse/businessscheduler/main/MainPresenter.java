@@ -22,7 +22,27 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void onClick() {
-        mainView.showToast();
+    public void goToAddPageOnAddBtnClicked() {
+
+    }
+
+    @Override
+    public void setSelectedDateData() {
+
+    }
+
+    @Override
+    public void reloadCurrentPageData() {
+
+    }
+
+    @Override
+    public void goToDetailPageOnItemSelected() {
+
+    }
+
+    @Override
+    public void refresh() {
+
     }
 }

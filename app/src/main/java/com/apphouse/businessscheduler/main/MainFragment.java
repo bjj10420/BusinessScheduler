@@ -26,15 +26,20 @@ public class MainFragment extends Fragment implements MainContract.View {
     }
 
     @Override
-    public boolean showToast() {
-        Toast.makeText(getContext(), "MVP Test", Toast.LENGTH_LONG).show();
-        return false;
+    public void showPreviewOnItemSelected() {
+
+    }
+
+    @Override
+    public void hidePreviewOnItemSelected() {
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+        FragmentMainBinding binding =
+                DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         View fragmentView = binding.getRoot();
         initView(binding);
         return fragmentView;
