@@ -15,14 +15,14 @@ public interface MainContract {
 
     }
 
-    interface Presenter extends CoreActivityPresenter {
+interface Presenter extends CoreActivityPresenter {
 
-        void goToAddPageOnAddBtnClicked();
+    void goToAddPageOnAddBtnClicked();
 
-        void setSelectedDateData();
+    void setSelectedDateData();
 
-        // 페이징시
-        void reloadCurrentPageData();
+    // 페이징시
+    void reloadCurrentPageData();
 
-    }
+}
 }

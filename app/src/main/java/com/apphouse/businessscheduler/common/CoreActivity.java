@@ -10,11 +10,11 @@ public abstract class CoreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initTransition();
+        activityTransition();
     }
 
-    void initTransition(){
-        Log.d("순서테스트", "CoreActivity initTransition");
+    void activityTransition(){
+        Log.d("순서테스트", "CoreActivity activityTransition");
         loadDBData();
         loadCurrentPageDisplay();
     }
