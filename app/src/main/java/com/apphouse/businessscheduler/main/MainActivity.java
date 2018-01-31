@@ -48,6 +48,6 @@ public class MainActivity extends CoreActivity {
 
     @Override
     public void loadCurrentPageDisplay() {
-
+        Log.d("순서테스트", "MainActivity loadCurrentPageDisplay");
     }
 }
