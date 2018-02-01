@@ -7,6 +7,9 @@ import android.widget.Toast;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import static android.support.v4.util.Preconditions.checkNotNull;
 
 
@@ -42,7 +45,9 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void onDateSelected(CalendarDay date) {
-        Log.d("onDateSelected 테스트", date.toString());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        String dateString = formatter.format(date.getDate());
+        Log.d("onDateSelected 테스트", dateString);
     }
 
     @Override
