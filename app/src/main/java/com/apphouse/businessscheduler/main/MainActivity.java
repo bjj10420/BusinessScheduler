@@ -11,6 +11,7 @@ import com.apphouse.businessscheduler.R;
 import com.apphouse.businessscheduler.common.CoreActivity;
 import com.apphouse.businessscheduler.databinding.ActivityMainBinding;
 import com.apphouse.businessscheduler.util.Util;
+import com.mikepenz.materialdrawer.DrawerBuilder;
 
 public class MainActivity extends CoreActivity {
 
@@ -28,6 +29,7 @@ public class MainActivity extends CoreActivity {
     private void init() {
         MainFragment mainFragment = initMainFragment();
         initMainPresenter(mainFragment);
+        new DrawerBuilder().withActivity(this).build();
     }
 
     private MainFragment initMainFragment() {
