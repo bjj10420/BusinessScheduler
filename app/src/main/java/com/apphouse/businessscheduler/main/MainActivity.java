@@ -12,7 +12,6 @@ import com.mikepenz.materialdrawer.Drawer;
 public class MainActivity extends CoreActivity {
 
     private MainPresenter mainPresenter;
-    private Drawer drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +25,12 @@ public class MainActivity extends CoreActivity {
         MainFragment mainFragment = initMainFragment();
         initMainPresenter(mainFragment);
         initDrawer();
+        initBottomBar();
+    }
+
+    private void initBottomBar() {
+        MainBottomBar mainBottomBar = new MainBottomBar();
+        mainBottomBar.init(this);
     }
 
     private MainFragment initMainFragment() {
@@ -41,7 +46,7 @@ public class MainActivity extends CoreActivity {
 
     private void initDrawer() {
         MainDrawer mainDrawer = new MainDrawer();
-        drawer = mainDrawer.init(this);
+        mainDrawer.init(this);
     }
 
     private void initMainPresenter(MainFragment mainFragment) {

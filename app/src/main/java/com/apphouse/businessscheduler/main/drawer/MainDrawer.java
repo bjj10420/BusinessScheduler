@@ -14,11 +14,13 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 public class MainDrawer {
 
+    public static Drawer drawer;
+
     public MainDrawer() {
 
     }
 
-    public Drawer init(Context context){
+    public void init(Context context){
 
         PrimaryDrawerItem item0 = createPrimaryItem(0, "TASKS", Ionicons.Icon.ion_ios_list);
         PrimaryDrawerItem item1 = createPrimaryItem(1, "DAY", Ionicons.Icon.ion_ios_time);
@@ -28,7 +30,7 @@ public class MainDrawer {
         PrimaryDrawerItem item5 = createPrimaryItem(5, "SEARCH", Ionicons.Icon.ion_ios_search_strong);
         PrimaryDrawerItem item6 = createPrimaryItem(6, "CONFIGURE", Ionicons.Icon.ion_ios_gear);
 
-        Drawer drawer = new DrawerBuilder()
+        drawer = new DrawerBuilder()
                 .withActivity((Activity) context)
                 .addDrawerItems(
                         item0,
@@ -50,7 +52,6 @@ public class MainDrawer {
                 .build();
         drawer.setSelection(3);
         drawer.addStickyFooterItem(new PrimaryDrawerItem().withName("Business Scheduler"));
-        return  drawer;
     }
 
     private PrimaryDrawerItem createPrimaryItem(int identifier, String year, Ionicons.Icon iconView) {

@@ -6,10 +6,51 @@
         android:layout_height="match_parent"
         tools:context="com.example.bjj10.practice.main.MainActivity">
 
-        <FrameLayout
-            android:id="@+id/contentLayout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></FrameLayout>
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/contentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="50dp"></FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:background="#000000">
+
+                <RelativeLayout
+                    android:id="@+id/menuBtn"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="5dp"
+                    android:padding="5dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/menu" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/addBtn"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
+                    android:padding="5dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/add" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
 
     </android.support.constraint.ConstraintLayout>
 </layout>
