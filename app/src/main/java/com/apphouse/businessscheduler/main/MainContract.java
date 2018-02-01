@@ -4,6 +4,7 @@ package com.apphouse.businessscheduler.main;
 import com.apphouse.businessscheduler.inter.BasePresenter;
 import com.apphouse.businessscheduler.inter.BaseView;
 import com.apphouse.businessscheduler.inter.CoreActivityPresenter;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 public interface MainContract {
 
@@ -24,6 +25,9 @@ public interface MainContract {
     // 페이징시
     void reloadCurrentPageData();
 
+    void onDateSelected(CalendarDay date);
+
     }
+
 
 }

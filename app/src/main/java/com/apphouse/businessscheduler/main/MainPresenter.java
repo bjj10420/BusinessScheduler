@@ -2,6 +2,10 @@ package com.apphouse.businessscheduler.main;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
 
@@ -34,6 +38,11 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void reloadCurrentPageData() {
 
+    }
+
+    @Override
+    public void onDateSelected(CalendarDay date) {
+        Log.d("onDateSelected 테스트", date.toString());
     }
 
     @Override
