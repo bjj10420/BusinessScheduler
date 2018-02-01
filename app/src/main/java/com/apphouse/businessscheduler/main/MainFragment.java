@@ -59,7 +59,7 @@ public class MainFragment extends Fragment implements MainContract.View {
         binding.calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                presenter.onDateSelected(date);
+                presenter.setSelectedDateData(date);
             }
         });
     }

@@ -20,12 +20,10 @@ public interface MainContract {
 
     void goToAddPageOnAddBtnClicked();
 
-    void setSelectedDateData();
+    void setSelectedDateData(CalendarDay date);
 
     // 페이징시
     void reloadCurrentPageData();
-
-    void onDateSelected(CalendarDay date);
 
     }
 

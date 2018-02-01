@@ -3,7 +3,6 @@ package com.apphouse.businessscheduler.main;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
@@ -16,6 +15,8 @@ import static android.support.v4.util.Preconditions.checkNotNull;
 public class MainPresenter implements MainContract.Presenter {
 
     private MainContract.View mainView;
+    private String selectedDate;
+
 
     @SuppressLint("RestrictedApi")
     public MainPresenter(@NonNull MainContract.View mainView) {
@@ -34,8 +35,10 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void setSelectedDateData() {
-
+    public void setSelectedDateData(CalendarDay date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        selectedDate = formatter.format(date.getDate());
+        Log.d("onDateSelected 테스트", selectedDate);
     }
 
     @Override
@@ -43,12 +46,6 @@ public class MainPresenter implements MainContract.Presenter {
 
     }
 
-    @Override
-    public void onDateSelected(CalendarDay date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
-        String dateString = formatter.format(date.getDate());
-        Log.d("onDateSelected 테스트", dateString);
-    }
 
     @Override
     public void goToDetailPageOnItemSelected() {

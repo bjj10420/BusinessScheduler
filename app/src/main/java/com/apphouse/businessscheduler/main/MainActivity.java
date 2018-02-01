@@ -23,7 +23,6 @@ public class MainActivity extends CoreActivity {
         Log.d("순서테스트", "MainActivity onCreate");
         setContentView(R.layout.activity_main);
         init();
-        //
     }
 
     private void init() {
