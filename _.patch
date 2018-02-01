@@ -1,0 +1,56 @@
+Index: app/src/main/res/layout/fragment_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_main.xml	(revision 9e4c411a046c4f47e42550b1cc7bfda45a6984ac)
++++ app/src/main/res/layout/fragment_main.xml	(revision )
+@@ -4,15 +4,28 @@
+ 
+     <android.support.constraint.ConstraintLayout
+         android:layout_width="match_parent"
+-        android:layout_height="match_parent">
++        android:layout_height="wrap_content">
++
++        <RelativeLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content">
+ 
+-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+-            android:id="@+id/calendarView"
+-            android:layout_width="match_parent"
+-            android:layout_height="match_parent"
+-            app:mcv_selectionColor="#4e4e4e"
+-            app:mcv_showOtherDates="all" />
++            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
++                android:id="@+id/calendarView"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                app:mcv_selectionColor="#4e4e4e"
++                app:mcv_showOtherDates="all" />
+ 
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:layout_height="50dp"
++                android:layout_alignParentBottom="true"
++                android:background="#404040">
++
++            </LinearLayout>
++        </RelativeLayout>
+     </android.support.constraint.ConstraintLayout>
+ 
++
+ </layout>
+\ No newline at end of file
+diff --git app/src/main/res/drawable/add.png app/src/main/res/drawable/add.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..f3f62bdfe363c25c45d89d240729202831238515
+GIT binary patch
+literal 537
+zc%17D@N?(olHy`uVBq!ia0vp^4Is?H1|$#LC7uRSEX7WqAsj$Z!;#Vf<Z~8yL>4nJ
+za0`PlBg3pY5)2HCyFFbTLn`LHy}QwqB~irf;_@4<Vvmv}rzI&*OH7blbfYbzZ9(Tn
+ztJ&}Li_bTDs#P6qo%v=qBZI>8q_2$KHfPQ}d~x^m85_MFsVi4sW!EX1G4uE0@_22&
+z$hSpb8P}*bSTG*pRPbXcWa<!hn8WahML?Z?Le^WQcWhm~U46T8aqX9P#cB7%?-c3H
+z-rcdhjCp(6*KhBheZRT-Y^=+Ch?aL(><^rNQ|<jd?_b?}`?P1d2X&u++V!j9|C7qJ
+yef{&6FBR8)Bur1|<M2^=^zM$buM7+sKNv4ricS6J`6dP!w+x=HelF{r5}E*|EV}Oi
+

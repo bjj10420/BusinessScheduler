@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.apphouse.businessscheduler.R;
 import com.apphouse.businessscheduler.databinding.FragmentMainBinding;
 import com.apphouse.businessscheduler.main.decorator.OneDayDecorator;
+import com.apphouse.businessscheduler.util.Util;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
@@ -66,9 +68,11 @@ public class MainFragment extends Fragment implements MainContract.View {
         });
     }
 
-
     private void initCalendarView(MaterialCalendarView calendarView) {
-        calendarView.setTileHeightDp(60);
+        int calendarViewCellHeight = (int) (Util.getScreenSize(getContext()).y - Util.convertDpToPixel(50)) / 8;
+//        int calendarViewCellHeight = 65;
+        calendarView.setShowOtherDates(MaterialCalendarView.SHOW_NONE);
+        calendarView.setTileHeightDp(Util.converPixelToDp(calendarViewCellHeight));
         calendarView.addDecorator(new OneDayDecorator(getContext()));
     }
 
