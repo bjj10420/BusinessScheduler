@@ -27,7 +27,7 @@ public class MainDrawer {
 
 
 //create the drawer and remember the `Drawer` result object
-        Drawer result = new DrawerBuilder()
+        Drawer drawer = new DrawerBuilder()
                 .withActivity((Activity) context)
                 .addDrawerItems(
                         item0,
@@ -35,8 +35,8 @@ public class MainDrawer {
                         item2,
                         item3,
                         item4,
-                        item5,
                         new DividerDrawerItem(),
+                        item5,
                         item6
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -47,7 +47,8 @@ public class MainDrawer {
                     }
                 })
                 .build();
-        result.setSelection(3);
+        drawer.setSelection(3);
+        drawer.addStickyFooterItem(new PrimaryDrawerItem().withName("Business Scheduler"));
     }
 
     private PrimaryDrawerItem createPrimaryItem(int identifier, String year, Ionicons.Icon iconView) {
