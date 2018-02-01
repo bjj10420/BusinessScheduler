@@ -15,7 +15,7 @@ public interface MainContract {
 
     }
 
-interface Presenter extends CoreActivityPresenter {
+    interface Presenter extends CoreActivityPresenter {
 
     void goToAddPageOnAddBtnClicked();
 
@@ -24,5 +24,6 @@ interface Presenter extends CoreActivityPresenter {
     // 페이징시
     void reloadCurrentPageData();
 
-}
+    }
+
 }
