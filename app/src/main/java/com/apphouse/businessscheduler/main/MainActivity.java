@@ -7,10 +7,12 @@ import com.apphouse.businessscheduler.R;
 import com.apphouse.businessscheduler.common.CoreActivity;
 import com.apphouse.businessscheduler.main.drawer.MainDrawer;
 import com.apphouse.businessscheduler.util.Util;
+import com.mikepenz.materialdrawer.Drawer;
 
 public class MainActivity extends CoreActivity {
 
     private MainPresenter mainPresenter;
+    private Drawer drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +28,6 @@ public class MainActivity extends CoreActivity {
         initDrawer();
     }
 
-    private void initDrawer() {
-        MainDrawer mainDrawer = new MainDrawer(this);
-    }
-
     private MainFragment initMainFragment() {
         MainFragment MainFragment =
                 (MainFragment) getSupportFragmentManager().findFragmentById(R.id.contentLayout);
@@ -39,6 +37,11 @@ public class MainActivity extends CoreActivity {
                     getSupportFragmentManager(), MainFragment, R.id.contentLayout);
         }
         return MainFragment;
+    }
+
+    private void initDrawer() {
+        MainDrawer mainDrawer = new MainDrawer();
+        drawer = mainDrawer.init(this);
     }
 
     private void initMainPresenter(MainFragment mainFragment) {
