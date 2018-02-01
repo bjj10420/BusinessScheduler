@@ -1,17 +1,12 @@
 package com.apphouse.businessscheduler.main;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import com.apphouse.businessscheduler.R;
 import com.apphouse.businessscheduler.common.CoreActivity;
-import com.apphouse.businessscheduler.databinding.ActivityMainBinding;
+import com.apphouse.businessscheduler.main.drawer.MainDrawer;
 import com.apphouse.businessscheduler.util.Util;
-import com.mikepenz.materialdrawer.DrawerBuilder;
 
 public class MainActivity extends CoreActivity {
 
@@ -20,7 +15,6 @@ public class MainActivity extends CoreActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Log.d("순서테스트", "MainActivity onCreate");
         setContentView(R.layout.activity_main);
         init();
@@ -29,7 +23,11 @@ public class MainActivity extends CoreActivity {
     private void init() {
         MainFragment mainFragment = initMainFragment();
         initMainPresenter(mainFragment);
-        new DrawerBuilder().withActivity(this).build();
+        initDrawer();
+    }
+
+    private void initDrawer() {
+        MainDrawer mainDrawer = new MainDrawer(this);
     }
 
     private MainFragment initMainFragment() {
