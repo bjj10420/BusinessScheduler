@@ -44,7 +44,6 @@ public class OneDayDecorator implements DayViewDecorator {
         else
             return false;
 //          return  day.getDay() == 1 || day.getDay() == 5;
-//        return true;
     }
 
     @SuppressLint("NewApi")
