@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 
 import com.apphouse.businessscheduler.R;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -23,6 +24,8 @@ public class OneDayDecorator implements DayViewDecorator {
 
     Context context;
     private CalendarDay date;
+    CalendarDay day;
+    private DayViewFacade dayViewFacade;
 
     public OneDayDecorator(Context context) {
         date = CalendarDay.today();
@@ -31,7 +34,17 @@ public class OneDayDecorator implements DayViewDecorator {
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
-        return date != null && day.equals(date);
+
+        if(day.getDay() == 1 || day.getDay() == 5) {
+            this.day = day;
+            Log.d("호출된 shouldDecorate 테스트", "호출됨");
+            decorate(dayViewFacade);
+            return true;
+        }
+        else
+            return false;
+//          return  day.getDay() == 1 || day.getDay() == 5;
+//        return true;
     }
 
     @SuppressLint("NewApi")
@@ -39,7 +52,9 @@ public class OneDayDecorator implements DayViewDecorator {
     public void decorate(DayViewFacade view) {
 //        view.addSpan(new StyleSpan(Typeface.BOLD));
 //        view.addSpan(new RelativeSizeSpan(1.4f));
-          view.addSpan(new CustomSpan(Color.parseColor("#404040"), context));
+        Log.d("호출된 데코레이트 테스트", "호출됨 day = " + day);
+          this.dayViewFacade = view;
+          view.addSpan(new CustomSpan(Color.parseColor("#404040"), context, day));
     }
 
     /**
