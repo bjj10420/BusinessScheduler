@@ -23,15 +23,13 @@ import java.util.ArrayList;
 
 public class CustomSpan implements LineBackgroundSpan {
 
-    private final CalendarDay day;
     private final ArrayList<Schedule> schedulesForADay;
     Context context;
     private final int color;
 
-    public CustomSpan(int color, Context context, CalendarDay day, ArrayList<Schedule> schedulesForADay) {
+    public CustomSpan(int color, Context context, ArrayList<Schedule> schedulesForADay) {
         this.color = color;
         this.context = context;
-        this.day = day;
         this.schedulesForADay = schedulesForADay;
     }
 
@@ -46,8 +44,9 @@ public class CustomSpan implements LineBackgroundSpan {
         if (color != 0) {
             paint.setColor(color);
         }
-        if(day != null)
-        makeRowLayout(canvas, paint);
+        if(schedulesForADay != null)
+            makeRowLayout(canvas, paint);
+
         paint.setColor(oldColor);
     }
 

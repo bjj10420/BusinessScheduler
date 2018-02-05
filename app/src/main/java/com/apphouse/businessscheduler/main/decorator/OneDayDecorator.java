@@ -53,7 +53,6 @@ public class OneDayDecorator implements DayViewDecorator {
     public boolean shouldDecorate(CalendarDay day) {
         if(schedulesForAMonthOpened != null &&
                 schedulesForAMonthOpened.containsKey(day.getDay())) {
-            this.day = day;
             schedulesForADay = schedulesForAMonthOpened.get(day.getDay());
             Log.d("호출된 shouldDecorate 테스트", "호출됨");
             decorate(dayViewFacade);
@@ -69,9 +68,9 @@ public class OneDayDecorator implements DayViewDecorator {
     public void decorate(DayViewFacade view) {
 //        view.addSpan(new StyleSpan(Typeface.BOLD));
 //        view.addSpan(new RelativeSizeSpan(1.4f));
-        Log.d("호출된 데코레이트 테스트", "호출됨 day = " + day);
+        Log.d("호출된 데코레이트 테스트", "호출됨 day = " + schedulesForADay);
           this.dayViewFacade = view;
-          view.addSpan(new CustomSpan(Color.parseColor("#404040"), context, day, schedulesForADay));
+          view.addSpan(new CustomSpan(Color.parseColor("#404040"), context, schedulesForADay));
     }
 
     /**

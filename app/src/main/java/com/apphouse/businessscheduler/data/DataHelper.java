@@ -37,12 +37,18 @@ public class DataHelper {
         dbHelper.insertSchedule(schedule2);
 
         Schedule schedule3 = new Schedule();
-        schedule3.setScheduleName("이거 실환가?!!!!");
+        schedule3.setScheduleName("real?!!!!");
         schedule3.setColor("blue");
-        schedule3.setDate("20180215");
+        schedule3.setDate("20180115");
         schedule3.setMemo("Hello");
         dbHelper.insertSchedule(schedule3);
 
+        Schedule schedule4 = new Schedule();
+        schedule4.setScheduleName("wow!!!!");
+        schedule4.setColor("blue");
+        schedule4.setDate("20180115");
+        schedule4.setMemo("Hello");
+        dbHelper.insertSchedule(schedule4);
 
     }
 
