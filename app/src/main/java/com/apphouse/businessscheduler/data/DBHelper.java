@@ -62,6 +62,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.setTransactionSuccessful();
         // 트랜잭션 종료
         db.endTransaction();
+
     }
 
     @Override
@@ -78,8 +79,9 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(timeValue_colum, schedule.getTime());
         values.put(memoValue_colum, schedule.getMemo());
         values.put(colorValue_colum, schedule.getColor());
-        Log.d("인설트스케쥴 체크", String.valueOf(schedule.getOrder()));
         long result = DB.insert(scheduleTableName, null, values);
+        Log.d("인설트스케쥴 체크", "인설트 결과 = " + result);
+
         return result;
     }
 
@@ -87,7 +89,7 @@ public class DBHelper extends SQLiteOpenHelper {
         DB = getWritableDatabase();
 
         String sql = String.format(Locale.getDefault(),
-                "SELECT * FROM %s order by " + orderValue_colum + " asc ",
+                "SELECT * FROM %s",
                 scheduleTableName
         );
 
@@ -116,7 +118,9 @@ public class DBHelper extends SQLiteOpenHelper {
             allScheduleMap.put(scheduleYearMonth, scheduleMap);
         }
         int date = Integer.parseInt(schedule.getDate().substring(6,8));
-        if(scheduleMap.get(date) == null) scheduleMap.put(date, new ArrayList<Schedule>());
-        else scheduleMap.get(date).add(schedule);
+        if (scheduleMap.get(date) == null)
+            scheduleMap.put(date, new ArrayList<Schedule>());
+
+        scheduleMap.get(date).add(schedule);
     }
 }

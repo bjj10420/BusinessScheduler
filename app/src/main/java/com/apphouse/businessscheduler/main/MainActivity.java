@@ -10,6 +10,8 @@ import com.apphouse.businessscheduler.data.DataHelper;
 import com.apphouse.businessscheduler.main.drawer.MainDrawer;
 import com.apphouse.businessscheduler.util.Util;
 
+import static com.apphouse.businessscheduler.data.DataHelper.dataHelper;
+
 public class MainActivity extends CoreActivity {
 
     private MainPresenter mainPresenter;
@@ -28,6 +30,7 @@ public class MainActivity extends CoreActivity {
         initMainPresenter(mainFragment);
         initDrawer();
         initBottomBar();
+        dataHelper.insertTest();
     }
 
     private void initData() {

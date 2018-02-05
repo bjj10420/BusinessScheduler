@@ -26,13 +26,13 @@ public class OneDayDecorator implements DayViewDecorator {
     Context context;
     private HashMap<Integer, ArrayList<Schedule>> schedulesForAMonthOpened;
     private CalendarDay calendarDay;
-    CalendarDay day;
     private DayViewFacade dayViewFacade;
     private ArrayList<Schedule> schedulesForADay;
 
     // 초기화시
     public OneDayDecorator(Context context) {
         calendarDay = CalendarDay.today();
+        Log.d("초기화시 오늘날짜 확인", String.valueOf(calendarDay.getDate()));
         this.context = context;
         loadData();
     }

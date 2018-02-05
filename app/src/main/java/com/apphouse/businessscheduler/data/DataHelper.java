@@ -18,10 +18,9 @@ public class DataHelper {
         new DBHelper(context);
         scheduleMapByMonth = new HashMap<Integer, HashMap<Integer, ArrayList<Schedule>>>();
         dbHelper.selectAllSchedule(scheduleMapByMonth);
-        insertTest();
     }
 
-    private void insertTest() {
+    public void insertTest() {
         Schedule schedule = new Schedule();
         schedule.setScheduleName("test schedule2");
         schedule.setColor("blue");
