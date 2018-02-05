@@ -30,12 +30,14 @@ public class OneDayDecorator implements DayViewDecorator {
     private DayViewFacade dayViewFacade;
     private ArrayList<Schedule> schedulesForADay;
 
+    // 초기화시
     public OneDayDecorator(Context context) {
         calendarDay = CalendarDay.today();
         this.context = context;
         loadData();
     }
 
+    // 페이징시
     public OneDayDecorator(Context context, CalendarDay calendarDay) {
         this.calendarDay = calendarDay;
         this.context = context;

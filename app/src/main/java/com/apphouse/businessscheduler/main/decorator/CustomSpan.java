@@ -78,11 +78,17 @@ public class CustomSpan implements LineBackgroundSpan {
     }
 
     private void fillRowLayout(LinearLayout rowLayout) {
+        int count = 0;
         for(Schedule schedule : schedulesForADay){
-            makeTextViewAndSpendToRowLayout(schedule.getScheduleName(), rowLayout);
+            if(count < 2)
+                makeTextViewAndSpendToRowLayout(schedule.getScheduleName(), rowLayout);
+            else{
+                makeIconViewAndSpendToRowLayout(rowLayout);
+                break;
+            }
+            count++;
         }
 //        makeTextViewAndSpendToRowLayout("테스트3", rowLayout);
-//        makeIconViewAndSpendToRowLayout(rowLayout);
     }
 
     private void drawRowLayoutOnTheCanvas(LinearLayout rowLayout, Canvas canvas, Paint paint) {
