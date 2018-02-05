@@ -56,4 +56,9 @@ public class Util {
             v.requestLayout();
         }
     }
+
+    public static String getYearMonthFromDate(String scheduleDate) {
+        String yearMonth = scheduleDate.substring(0,6);
+        return yearMonth;
+    }
 }

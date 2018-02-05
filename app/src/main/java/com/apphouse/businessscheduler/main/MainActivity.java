@@ -5,10 +5,10 @@ import android.util.Log;
 
 import com.apphouse.businessscheduler.R;
 import com.apphouse.businessscheduler.common.CoreActivity;
-import com.apphouse.businessscheduler.db.DBHelper;
+import com.apphouse.businessscheduler.data.DBHelper;
+import com.apphouse.businessscheduler.data.DataHelper;
 import com.apphouse.businessscheduler.main.drawer.MainDrawer;
 import com.apphouse.businessscheduler.util.Util;
-import com.mikepenz.materialdrawer.Drawer;
 
 public class MainActivity extends CoreActivity {
 
@@ -31,7 +31,7 @@ public class MainActivity extends CoreActivity {
     }
 
     private void initData() {
-        new DBHelper(this);
+        new DataHelper().init(this);
     }
 
     private MainFragment initMainFragment() {

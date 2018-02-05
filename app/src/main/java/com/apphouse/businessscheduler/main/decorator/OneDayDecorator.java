@@ -3,19 +3,19 @@ package com.apphouse.businessscheduler.main.decorator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.util.Log;
 
-import com.apphouse.businessscheduler.R;
+import com.apphouse.businessscheduler.vo.Schedule;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+
+import static com.apphouse.businessscheduler.data.DataHelper.dataHelper;
 
 /**
  * Decorate a day by making the text big and bold
@@ -23,21 +23,29 @@ import java.util.Date;
 public class OneDayDecorator implements DayViewDecorator {
 
     Context context;
-    private CalendarDay date;
+    private HashMap<Integer, Schedule> schedulesForAMonthOpened;
+    private CalendarDay today;
     CalendarDay day;
     private DayViewFacade dayViewFacade;
 
     public OneDayDecorator(Context context) {
-        date = CalendarDay.today();
+        today = CalendarDay.today();
         this.context = context;
+        loadData();
+    }
+
+    private void loadData() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMM");
+        String theMonth = format.format(today.getDate());
+        Log.d("오늘날짜 확인", format.format(today.getDate()));
+        schedulesForAMonthOpened =  dataHelper.getScheduleMapForAMonth(Integer.parseInt(theMonth));
     }
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
 
-        if(day.getDay() == 1 || day.getDay() == 5) {
+        if(schedulesForAMonthOpened.containsKey(day.getDay())) {
             this.day = day;
-
             Log.d("호출된 shouldDecorate 테스트", "호출됨");
             decorate(dayViewFacade);
             return true;
@@ -60,7 +68,7 @@ public class OneDayDecorator implements DayViewDecorator {
     /**
      * We're changing the internals, so make sure to call {@linkplain MaterialCalendarView#invalidateDecorators()}
      */
-    public void setDate(Date date) {
-        this.date = CalendarDay.from(date);
+    public void setToday(Date today) {
+        this.today = CalendarDay.from(today);
     }
 }
