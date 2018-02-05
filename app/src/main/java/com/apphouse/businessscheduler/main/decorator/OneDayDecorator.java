@@ -37,6 +37,7 @@ public class OneDayDecorator implements DayViewDecorator {
 
         if(day.getDay() == 1 || day.getDay() == 5) {
             this.day = day;
+
             Log.d("호출된 shouldDecorate 테스트", "호출됨");
             decorate(dayViewFacade);
             return true;
