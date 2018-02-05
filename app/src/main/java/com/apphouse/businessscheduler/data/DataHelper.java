@@ -3,23 +3,20 @@ package com.apphouse.businessscheduler.data;
 import android.content.Context;
 import com.apphouse.businessscheduler.vo.Schedule;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
 import static com.apphouse.businessscheduler.data.DBHelper.dbHelper;
 
 public class DataHelper {
 
     public static DataHelper dataHelper;
-    private HashMap<Integer, HashMap<Integer, Schedule>> scheduleMapByMonth;
-    private Calendar calendar;
+    private HashMap<Integer, HashMap<Integer,  ArrayList<Schedule>>> scheduleMapByMonth;
 
     public void init(Context context){
         dataHelper = this;
-        calendar = Calendar.getInstance(Locale.getDefault());
         new DBHelper(context);
-        scheduleMapByMonth = new HashMap<Integer, HashMap<Integer, Schedule>>();
+        scheduleMapByMonth = new HashMap<Integer, HashMap<Integer, ArrayList<Schedule>>>();
         dbHelper.selectAllSchedule(scheduleMapByMonth);
         insertTest();
     }
@@ -33,27 +30,31 @@ public class DataHelper {
         dbHelper.insertSchedule(schedule);
 
         Schedule schedule2 = new Schedule();
-        schedule2.setScheduleName("test schedule2");
+        schedule2.setScheduleName("test schedule5");
         schedule2.setColor("blue");
         schedule2.setDate("20180210");
         schedule2.setMemo("Hello");
         dbHelper.insertSchedule(schedule2);
+
+        Schedule schedule3 = new Schedule();
+        schedule3.setScheduleName("이거 실환가?!!!!");
+        schedule3.setColor("blue");
+        schedule3.setDate("20180215");
+        schedule3.setMemo("Hello");
+        dbHelper.insertSchedule(schedule3);
+
+
     }
 
-    public HashMap<Integer, HashMap<Integer, Schedule>> getScheduleMapByMonth() {
+    public HashMap<Integer, HashMap<Integer, ArrayList<Schedule>>> getScheduleMapByMonth() {
         return scheduleMapByMonth;
     }
 
-    public HashMap<Integer, Schedule> getScheduleMapForAMonth(int month){
+    public void setScheduleMapByMonth(HashMap<Integer, HashMap<Integer, ArrayList<Schedule>>> scheduleMapByMonth) {
+        this.scheduleMapByMonth = scheduleMapByMonth;
+    }
+
+    public HashMap<Integer, ArrayList<Schedule>> getScheduleMapForAMonth(int month){
         return scheduleMapByMonth.get(month);
     }
-
-    public void addMonthToCalendar(){
-        calendar.add(Calendar.MONTH, 1);
-    }
-
-    public void minusMonthToCalendar(){
-        calendar.add(Calendar.MONTH, -1);
-    }
-
 }

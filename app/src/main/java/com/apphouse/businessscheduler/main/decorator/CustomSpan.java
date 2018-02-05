@@ -18,19 +18,21 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
+import java.util.ArrayList;
+
 
 public class CustomSpan implements LineBackgroundSpan {
 
     private final CalendarDay day;
-    private final Schedule schedule;
+    private final ArrayList<Schedule> schedulesForADay;
     Context context;
     private final int color;
 
-    public CustomSpan(int color, Context context, CalendarDay day, Schedule schedule) {
+    public CustomSpan(int color, Context context, CalendarDay day, ArrayList<Schedule> schedulesForADay) {
         this.color = color;
         this.context = context;
         this.day = day;
-        this.schedule = schedule;
+        this.schedulesForADay = schedulesForADay;
     }
 
     @Override
@@ -77,8 +79,9 @@ public class CustomSpan implements LineBackgroundSpan {
     }
 
     private void fillRowLayout(LinearLayout rowLayout) {
-        makeTextViewAndSpendToRowLayout(day.toString(), rowLayout);
-        makeTextViewAndSpendToRowLayout(schedule.getScheduleName(), rowLayout);
+        for(Schedule schedule : schedulesForADay){
+            makeTextViewAndSpendToRowLayout(schedule.getScheduleName(), rowLayout);
+        }
 //        makeTextViewAndSpendToRowLayout("테스트3", rowLayout);
 //        makeIconViewAndSpendToRowLayout(rowLayout);
     }

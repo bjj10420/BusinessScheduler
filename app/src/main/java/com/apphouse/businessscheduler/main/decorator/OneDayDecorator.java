@@ -12,6 +12,7 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -23,11 +24,11 @@ import static com.apphouse.businessscheduler.data.DataHelper.dataHelper;
 public class OneDayDecorator implements DayViewDecorator {
 
     Context context;
-    private HashMap<Integer, Schedule> schedulesForAMonthOpened;
+    private HashMap<Integer, ArrayList<Schedule>> schedulesForAMonthOpened;
     private CalendarDay calendarDay;
     CalendarDay day;
     private DayViewFacade dayViewFacade;
-    private Schedule schedule;
+    private ArrayList<Schedule> schedulesForADay;
 
     public OneDayDecorator(Context context) {
         calendarDay = CalendarDay.today();
@@ -50,11 +51,10 @@ public class OneDayDecorator implements DayViewDecorator {
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
-
         if(schedulesForAMonthOpened != null &&
                 schedulesForAMonthOpened.containsKey(day.getDay())) {
             this.day = day;
-            schedule = schedulesForAMonthOpened.get(day.getDay());
+            schedulesForADay = schedulesForAMonthOpened.get(day.getDay());
             Log.d("호출된 shouldDecorate 테스트", "호출됨");
             decorate(dayViewFacade);
             return true;
@@ -71,7 +71,7 @@ public class OneDayDecorator implements DayViewDecorator {
 //        view.addSpan(new RelativeSizeSpan(1.4f));
         Log.d("호출된 데코레이트 테스트", "호출됨 day = " + day);
           this.dayViewFacade = view;
-          view.addSpan(new CustomSpan(Color.parseColor("#404040"), context, day, schedule));
+          view.addSpan(new CustomSpan(Color.parseColor("#404040"), context, day, schedulesForADay));
     }
 
     /**

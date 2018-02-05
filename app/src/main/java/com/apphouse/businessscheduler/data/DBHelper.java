@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import com.apphouse.businessscheduler.util.Util;
 import com.apphouse.businessscheduler.vo.Schedule;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -81,7 +83,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public void selectAllSchedule(HashMap<Integer, HashMap<Integer, Schedule>> allScheduleMap){
+    public void selectAllSchedule(HashMap<Integer, HashMap<Integer,  ArrayList<Schedule>>> allScheduleMap){
         DB = getWritableDatabase();
 
         String sql = String.format(Locale.getDefault(),
@@ -107,14 +109,14 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    private void addScheduleToMapByMonth(HashMap<Integer, HashMap<Integer, Schedule>> allScheduleMap, int scheduleYearMonth, Schedule schedule) {
-        HashMap<Integer, Schedule> scheduleMap = allScheduleMap.get(scheduleYearMonth);
+    private void addScheduleToMapByMonth(HashMap<Integer, HashMap<Integer,  ArrayList<Schedule>>> allScheduleMap, int scheduleYearMonth, Schedule schedule) {
+        HashMap<Integer,  ArrayList<Schedule>> scheduleMap = allScheduleMap.get(scheduleYearMonth);
         if(scheduleMap == null){
-            scheduleMap = new HashMap<Integer, Schedule>();
+            scheduleMap = new HashMap<Integer, ArrayList<Schedule>>();
             allScheduleMap.put(scheduleYearMonth, scheduleMap);
         }
-
-        scheduleMap.put(Integer.parseInt(schedule.getDate().substring(6,8)), schedule);
+        int date = Integer.parseInt(schedule.getDate().substring(6,8));
+        if(scheduleMap.get(date) == null) scheduleMap.put(date, new ArrayList<Schedule>());
+        else scheduleMap.get(date).add(schedule);
     }
-
 }
