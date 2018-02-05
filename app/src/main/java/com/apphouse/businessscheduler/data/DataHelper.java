@@ -21,11 +21,18 @@ public class DataHelper {
 
     private void insertTest() {
         Schedule schedule = new Schedule();
-        schedule.setScheduleName("test schedule");
+        schedule.setScheduleName("test schedule2");
         schedule.setColor("blue");
         schedule.setDate("20180208");
         schedule.setMemo("Hello");
         dbHelper.insertSchedule(schedule);
+
+        Schedule schedule2 = new Schedule();
+        schedule2.setScheduleName("test schedule2");
+        schedule2.setColor("blue");
+        schedule2.setDate("20180210");
+        schedule2.setMemo("Hello");
+        dbHelper.insertSchedule(schedule2);
     }
 
     public HashMap<Integer, HashMap<Integer, Schedule>> getScheduleMapByMonth() {

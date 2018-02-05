@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import com.apphouse.businessscheduler.util.Util;
+import com.apphouse.businessscheduler.vo.Schedule;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -21,13 +22,15 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 public class CustomSpan implements LineBackgroundSpan {
 
     private final CalendarDay day;
+    private final Schedule schedule;
     Context context;
     private final int color;
 
-    public CustomSpan(int color, Context context, CalendarDay day) {
+    public CustomSpan(int color, Context context, CalendarDay day, Schedule schedule) {
         this.color = color;
         this.context = context;
         this.day = day;
+        this.schedule = schedule;
     }
 
     @Override
@@ -75,8 +78,8 @@ public class CustomSpan implements LineBackgroundSpan {
 
     private void fillRowLayout(LinearLayout rowLayout) {
         makeTextViewAndSpendToRowLayout(day.toString(), rowLayout);
-        makeTextViewAndSpendToRowLayout("테스트2", rowLayout);
-        makeTextViewAndSpendToRowLayout("테스트3", rowLayout);
+        makeTextViewAndSpendToRowLayout(schedule.getScheduleName(), rowLayout);
+//        makeTextViewAndSpendToRowLayout("테스트3", rowLayout);
 //        makeIconViewAndSpendToRowLayout(rowLayout);
     }
 
