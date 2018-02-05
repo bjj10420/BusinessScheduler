@@ -29,7 +29,6 @@ public class OneDayDecorator implements DayViewDecorator {
     private DayViewFacade dayViewFacade;
     private Schedule schedule;
 
-
     public OneDayDecorator(Context context) {
         today = CalendarDay.today();
         this.context = context;

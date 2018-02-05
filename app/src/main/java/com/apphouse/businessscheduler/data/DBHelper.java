@@ -100,7 +100,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 schedule.setMemo(c.getString(c.getColumnIndex(memoValue_colum)));
                 schedule.setTime(c.getString(c.getColumnIndex(timeValue_colum)));
                 schedule.setColor(c.getString(c.getColumnIndex(colorValue_colum)));
-                Log.d("셀렉트 확인", String.valueOf(schedule.getDate()));
                 String scheduleYearMonth = Util.getYearMonthFromDate(scheduleDate);
                 // 스케쥴 추가
                 addScheduleToMapByMonth(allScheduleMap, Integer.parseInt(scheduleYearMonth), schedule);
@@ -116,7 +115,6 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         scheduleMap.put(Integer.parseInt(schedule.getDate().substring(6,8)), schedule);
-        Log.d("해당 월의 스케쥴맵에 추가할 때 키값 체크", String.valueOf(Integer.parseInt(schedule.getDate().substring(6,8) + "000" + schedule.getOrder())));
     }
 
 }
