@@ -56,7 +56,7 @@ public class MainActivity extends CoreActivity {
     }
 
     private void initMainPresenter(MainFragment mainFragment) {
-        mainPresenter = new MainPresenter(mainFragment);
+        mainPresenter = new MainPresenter(mainFragment, this);
     }
 
     @Override

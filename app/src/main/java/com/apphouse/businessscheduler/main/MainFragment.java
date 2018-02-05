@@ -16,6 +16,7 @@ import com.apphouse.businessscheduler.util.Util;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 public class MainFragment extends Fragment implements MainContract.View {
 
@@ -60,6 +61,13 @@ public class MainFragment extends Fragment implements MainContract.View {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 presenter.setSelectedDateData(date);
+            }
+        });
+
+        binding.calendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
+            @Override
+            public void onMonthChanged(MaterialCalendarView calendarView, CalendarDay date) {
+                presenter.reloadCurrentPageData(calendarView, date);
             }
         });
     }

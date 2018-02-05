@@ -24,28 +24,35 @@ public class OneDayDecorator implements DayViewDecorator {
 
     Context context;
     private HashMap<Integer, Schedule> schedulesForAMonthOpened;
-    private CalendarDay today;
+    private CalendarDay calendarDay;
     CalendarDay day;
     private DayViewFacade dayViewFacade;
     private Schedule schedule;
 
     public OneDayDecorator(Context context) {
-        today = CalendarDay.today();
+        calendarDay = CalendarDay.today();
+        this.context = context;
+        loadData();
+    }
+
+    public OneDayDecorator(Context context, CalendarDay calendarDay) {
+        this.calendarDay = calendarDay;
         this.context = context;
         loadData();
     }
 
     private void loadData() {
         SimpleDateFormat format = new SimpleDateFormat("yyyyMM");
-        String theMonth = format.format(today.getDate());
-        Log.d("오늘날짜 확인", format.format(today.getDate()));
-        schedulesForAMonthOpened =  dataHelper.getScheduleMapForAMonth(Integer.parseInt(theMonth));
+        String theYearMonth = format.format(calendarDay.getDate());
+        Log.d("loadData 오늘날짜 확인", format.format(calendarDay.getDate()));
+        schedulesForAMonthOpened =  dataHelper.getScheduleMapForAMonth(Integer.parseInt(theYearMonth));
     }
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
 
-        if(schedulesForAMonthOpened.containsKey(day.getDay())) {
+        if(schedulesForAMonthOpened != null &&
+                schedulesForAMonthOpened.containsKey(day.getDay())) {
             this.day = day;
             schedule = schedulesForAMonthOpened.get(day.getDay());
             Log.d("호출된 shouldDecorate 테스트", "호출됨");
@@ -70,7 +77,7 @@ public class OneDayDecorator implements DayViewDecorator {
     /**
      * We're changing the internals, so make sure to call {@linkplain MaterialCalendarView#invalidateDecorators()}
      */
-    public void setToday(Date today) {
-        this.today = CalendarDay.from(today);
+    public void setCalendarDay(Date calendarDay) {
+        this.calendarDay = CalendarDay.from(calendarDay);
     }
 }
