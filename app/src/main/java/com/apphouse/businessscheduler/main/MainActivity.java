@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.apphouse.businessscheduler.R;
 import com.apphouse.businessscheduler.common.CoreActivity;
+import com.apphouse.businessscheduler.db.DBHelper;
 import com.apphouse.businessscheduler.main.drawer.MainDrawer;
 import com.apphouse.businessscheduler.util.Util;
 import com.mikepenz.materialdrawer.Drawer;
@@ -22,15 +23,15 @@ public class MainActivity extends CoreActivity {
     }
 
     private void init() {
+        initData();
         MainFragment mainFragment = initMainFragment();
         initMainPresenter(mainFragment);
         initDrawer();
         initBottomBar();
     }
 
-    private void initBottomBar() {
-        MainBottomBar mainBottomBar = new MainBottomBar();
-        mainBottomBar.init(this);
+    private void initData() {
+        new DBHelper(this);
     }
 
     private MainFragment initMainFragment() {
@@ -47,6 +48,11 @@ public class MainActivity extends CoreActivity {
     private void initDrawer() {
         MainDrawer mainDrawer = new MainDrawer();
         mainDrawer.init(this);
+    }
+
+    private void initBottomBar() {
+        MainBottomBar mainBottomBar = new MainBottomBar();
+        mainBottomBar.init(this);
     }
 
     private void initMainPresenter(MainFragment mainFragment) {
