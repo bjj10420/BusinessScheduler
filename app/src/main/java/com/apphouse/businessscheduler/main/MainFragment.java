@@ -74,7 +74,6 @@ public class MainFragment extends Fragment implements MainContract.View {
         calendarView.setShowOtherDates(MaterialCalendarView.SHOW_NONE);
         calendarView.setTileHeightDp(calendarViewCellHeight);
         calendarView.addDecorator(new OneDayDecorator(getContext()));
-        calendarView.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS);
     }
 
     @Override
