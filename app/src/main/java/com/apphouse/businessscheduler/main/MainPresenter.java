@@ -79,8 +79,6 @@ public class MainPresenter implements MainContract.Presenter {
             return schedulesForADay.size() > 2;
     }
 
-
-
     @Override
     public void reloadCurrentPageData(MaterialCalendarView calendarView, CalendarDay calendarDay) {
         calendarView.removeDecorators();

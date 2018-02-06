@@ -73,7 +73,7 @@ public class DataHelper {
         return scheduleMapByMonth.get(month);
     }
 
-    public ArrayList<Schedule> getSchedulsForADay() {
+    public ArrayList<Schedule> getSchedulesForADay() {
         return schedulsForADay;
     }
 
