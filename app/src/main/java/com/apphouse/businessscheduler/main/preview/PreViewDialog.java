@@ -83,6 +83,7 @@ public class PreViewDialog {
         MaterialDialog dialog = new MaterialDialog(context);
         dialog.setContentView(contentView);
         dialog.setCanceledOnTouchOutside(true);
+        dialog.setTitle(dataHelper.getSchedulesForADay().size() + " Schedules");
         dialog.show();
     }
 }

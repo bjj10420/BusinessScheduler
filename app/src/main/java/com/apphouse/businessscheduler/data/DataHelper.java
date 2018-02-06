@@ -16,6 +16,7 @@ public class DataHelper {
     public static DataHelper dataHelper;
     private HashMap<Integer, HashMap<Integer,  ArrayList<Schedule>>> scheduleMapByMonth;
     private ArrayList<Schedule> schedulsForADay;
+    private String selectedData;
 
     public void init(Context context){
         dataHelper = this;
