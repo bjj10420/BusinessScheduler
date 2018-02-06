@@ -1,6 +1,7 @@
 package com.apphouse.businessscheduler.main.preview;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.apphouse.businessscheduler.R;
+import com.apphouse.businessscheduler.util.Util;
 import com.apphouse.businessscheduler.vo.Schedule;
 
 import me.drakeet.materialdialog.MaterialDialog;
@@ -49,7 +51,7 @@ public class PreViewDialog {
 
     private void setPreViewContent(LinearLayout preView) {
         for(Schedule schedule : dataHelper.getSchedulesForADay()){
-            Log.d("뷰를 add했습니다", "뷰를 add했습니다");
+            Log.d("뷰를 add했습니다", "스케쥴 정보는 " + schedule.getScheduleName());
             preView.addView(makeContentRowView(schedule));
         }
     }
@@ -63,7 +65,7 @@ public class PreViewDialog {
 
     private LinearLayout.LayoutParams makeLayoutParamsForRowView() {
         return new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+                (int) Util.convertDpToPixel(30));
     }
 
     private void makePreViewDialogAndShow(View contentView) {
