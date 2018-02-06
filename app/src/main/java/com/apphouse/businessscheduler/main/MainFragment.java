@@ -19,6 +19,8 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
+import me.drakeet.materialdialog.MaterialDialog;
+
 public class MainFragment extends Fragment implements MainContract.View {
 
     private MainContract.Presenter presenter;
@@ -31,7 +33,14 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     @Override
     public void showPreviewOnItemSelected() {
+        showPreViewDialog();
+    }
 
+    private void showPreViewDialog() {
+        MaterialDialog dialog = new MaterialDialog(getContext());
+        dialog.setMessage("test");
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 
     @Override
