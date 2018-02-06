@@ -17,6 +17,7 @@ import com.apphouse.businessscheduler.main.decorator.OneDayDecorator;
 import com.apphouse.businessscheduler.main.preview.PreViewDialog;
 import com.apphouse.businessscheduler.util.Util;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
@@ -73,6 +74,7 @@ public class MainFragment extends Fragment implements MainContract.View {
         calendarView.setShowOtherDates(MaterialCalendarView.SHOW_NONE);
         calendarView.setTileHeightDp(calendarViewCellHeight);
         calendarView.addDecorator(new OneDayDecorator(getContext()));
+        calendarView.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS);
     }
 
     @Override

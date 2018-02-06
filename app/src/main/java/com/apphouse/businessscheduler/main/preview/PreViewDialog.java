@@ -57,10 +57,21 @@ public class PreViewDialog {
     }
 
     private View makeContentRowView(Schedule schedule) {
+        View contentRowView = makeRowView();
+        setRowContent(contentRowView, schedule);
+        return  contentRowView;
+    }
+
+    private View makeRowView() {
         View contentRowView = LayoutInflater.from(context).inflate(R.layout.preview_row, null);
         contentRowView.setLayoutParams(makeLayoutParamsForRowView());
+        return contentRowView;
+    }
+
+    private void setRowContent(View contentRowView, Schedule schedule) {
+//        ((TextView)contentRowView.findViewById(R.id.rowContent)).setText(schedule.getScheduleName());
+        ((TextView)contentRowView.findViewById(R.id.rowTime)).setText(schedule.getTime());
         ((TextView)contentRowView.findViewById(R.id.rowContent)).setText(schedule.getScheduleName());
-        return  contentRowView;
     }
 
     private LinearLayout.LayoutParams makeLayoutParamsForRowView() {
