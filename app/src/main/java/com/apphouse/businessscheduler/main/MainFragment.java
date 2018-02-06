@@ -31,7 +31,7 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     @Override
     public void showPreviewOnItemSelected() {
-        Log.d("오버플로우입니다", "오버플로우입니다");
+
     }
 
     @Override

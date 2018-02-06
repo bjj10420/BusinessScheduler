@@ -62,7 +62,6 @@ public class MainPresenter implements MainContract.Presenter {
     public void setSelectedDateData(CalendarDay date) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         selectedDate = formatter.format(date.getDate());
-        Log.d("onDateSelected 테스트", selectedDate);
     }
 
     private boolean isOverflowDate(CalendarDay date) {
