@@ -20,6 +20,10 @@ public interface MainContract {
 
     void goToAddPageOnAddBtnClicked();
 
+    void goToDetailPage();
+
+    void actionOnDateClicked(CalendarDay date);
+
     void setSelectedDateData(CalendarDay date);
 
     void reloadCurrentPageData(MaterialCalendarView calendarView, CalendarDay date);

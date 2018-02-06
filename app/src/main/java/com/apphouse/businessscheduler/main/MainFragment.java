@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     @Override
     public void showPreviewOnItemSelected() {
-
+        Log.d("오버플로우입니다", "오버플로우입니다");
     }
 
     @Override
@@ -60,7 +61,7 @@ public class MainFragment extends Fragment implements MainContract.View {
         binding.calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                presenter.setSelectedDateData(date);
+                presenter.actionOnDateClicked(date);
             }
         });
 
