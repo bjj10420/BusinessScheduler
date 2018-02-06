@@ -1,18 +1,20 @@
 package com.apphouse.businessscheduler.main;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.apphouse.businessscheduler.R;
 import com.apphouse.businessscheduler.databinding.FragmentMainBinding;
 import com.apphouse.businessscheduler.main.decorator.OneDayDecorator;
-import com.apphouse.businessscheduler.main.drawer.MainDrawer;
+import com.apphouse.businessscheduler.main.preview.PreViewDialog;
 import com.apphouse.businessscheduler.util.Util;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -25,28 +27,7 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     private MainContract.Presenter presenter;
     private FragmentMainBinding binding;
-
-    @Override
-    public void setPresenter(MainContract.Presenter presenter) {
-        this.presenter = presenter;
-    }
-
-    @Override
-    public void showPreviewOnItemSelected() {
-        showPreViewDialog();
-    }
-
-    private void showPreViewDialog() {
-        MaterialDialog dialog = new MaterialDialog(getContext());
-        dialog.setMessage("test");
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.show();
-    }
-
-    @Override
-    public void hidePreviewOnItemSelected() {
-
-    }
+    private PreViewDialog preViewDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +41,11 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     private void initView() {
         initCalendarView(binding.calendarView);
+        initPreView();
+    }
+
+    private void initPreView() {
+        preViewDialog = new PreViewDialog(getContext());
     }
 
     private void initEvent() {
@@ -87,6 +73,21 @@ public class MainFragment extends Fragment implements MainContract.View {
         calendarView.setShowOtherDates(MaterialCalendarView.SHOW_NONE);
         calendarView.setTileHeightDp(calendarViewCellHeight);
         calendarView.addDecorator(new OneDayDecorator(getContext()));
+    }
+
+    @Override
+    public void setPresenter(MainContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
+    public void showPreviewOnItemSelected() {
+        preViewDialog.showPreViewDialog();
+    }
+
+    @Override
+    public void hidePreviewOnItemSelected() {
+
     }
 
     private int getCellHeight() {

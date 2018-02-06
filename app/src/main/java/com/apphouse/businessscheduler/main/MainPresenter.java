@@ -52,10 +52,17 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void actionOnDateClicked(CalendarDay date) {
         setSelectedDateData(date);
-        if(isOverflowDate(date))
+        if(isOverflowDate(date)) {
+            setSchedulsForADay(date);
             mainView.showPreviewOnItemSelected();
+        }
         else
             goToAddPageOnAddBtnClicked();
+    }
+
+    private void setSchedulsForADay(CalendarDay date) {
+        ArrayList<Schedule> schedulesForADay = dataHelper.getSchedulesForADay(date, selectedDate);
+        dataHelper.setSchedulsForADay(schedulesForADay);
     }
 
     @Override
@@ -65,19 +72,14 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     private boolean isOverflowDate(CalendarDay date) {
-        ArrayList<Schedule> schedulesForADay = getSchedulesForADay(date);
+        ArrayList<Schedule> schedulesForADay = dataHelper.getSchedulesForADay(date, selectedDate);
         if(schedulesForADay == null)
             return  false;
         else
             return schedulesForADay.size() > 2;
     }
 
-    private ArrayList<Schedule> getSchedulesForADay(CalendarDay date) {
-        HashMap<Integer, ArrayList<Schedule>> schedulesForAMonth =
-                dataHelper.getScheduleMapForAMonth(Integer.parseInt(Util.getYearMonthFromDate(selectedDate)));
-        ArrayList<Schedule> schedulesForADay = schedulesForAMonth.get(date.getDay());
-        return  schedulesForADay;
-    }
+
 
     @Override
     public void reloadCurrentPageData(MaterialCalendarView calendarView, CalendarDay calendarDay) {

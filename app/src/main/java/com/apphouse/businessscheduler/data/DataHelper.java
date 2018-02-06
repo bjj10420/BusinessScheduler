@@ -1,7 +1,10 @@
 package com.apphouse.businessscheduler.data;
 
 import android.content.Context;
+
+import com.apphouse.businessscheduler.util.Util;
 import com.apphouse.businessscheduler.vo.Schedule;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +15,7 @@ public class DataHelper {
 
     public static DataHelper dataHelper;
     private HashMap<Integer, HashMap<Integer,  ArrayList<Schedule>>> scheduleMapByMonth;
+    private ArrayList<Schedule> schedulsForADay;
 
     public void init(Context context){
         dataHelper = this;
@@ -48,7 +52,13 @@ public class DataHelper {
         schedule4.setDate("20171015");
         schedule4.setMemo("Hello");
         dbHelper.insertSchedule(schedule4);
+    }
 
+    public ArrayList<Schedule> getSchedulesForADay(CalendarDay date, String selectedDate) {
+        HashMap<Integer, ArrayList<Schedule>> schedulesForAMonth =
+                getScheduleMapForAMonth(Integer.parseInt(Util.getYearMonthFromDate(selectedDate)));
+        ArrayList<Schedule> schedulesForADay = schedulesForAMonth.get(date.getDay());
+        return  schedulesForADay;
     }
 
     public HashMap<Integer, HashMap<Integer, ArrayList<Schedule>>> getScheduleMapByMonth() {
@@ -61,5 +71,13 @@ public class DataHelper {
 
     public HashMap<Integer, ArrayList<Schedule>> getScheduleMapForAMonth(int month){
         return scheduleMapByMonth.get(month);
+    }
+
+    public ArrayList<Schedule> getSchedulsForADay() {
+        return schedulsForADay;
+    }
+
+    public void setSchedulsForADay(ArrayList<Schedule> schedulsForADay) {
+        this.schedulsForADay = schedulsForADay;
     }
 }
