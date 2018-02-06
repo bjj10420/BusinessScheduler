@@ -45,7 +45,7 @@ public class DataHelper {
         Schedule schedule4 = new Schedule();
         schedule4.setScheduleName("wow!!!!");
         schedule4.setColor("blue");
-        schedule4.setDate("20171115");
+        schedule4.setDate("20171015");
         schedule4.setMemo("Hello");
         dbHelper.insertSchedule(schedule4);
 
