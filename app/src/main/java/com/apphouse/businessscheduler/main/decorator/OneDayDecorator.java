@@ -75,10 +75,4 @@ public class OneDayDecorator implements DayViewDecorator {
           view.addSpan(new CustomSpan(Color.parseColor("#404040"), context, schedulesForADay));
     }
 
-    /**
-     * We're changing the internals, so make sure to call {@linkplain MaterialCalendarView#invalidateDecorators()}
-     */
-    public void setCalendarDay(Date calendarDay) {
-        this.calendarDay = CalendarDay.from(calendarDay);
-    }
 }

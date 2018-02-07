@@ -1,16 +1,13 @@
-package com.apphouse.businessscheduler.main;
+package com.apphouse.businessscheduler.week;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.apphouse.businessscheduler.R;
 import com.apphouse.businessscheduler.databinding.FragmentMainBinding;
@@ -18,16 +15,13 @@ import com.apphouse.businessscheduler.main.decorator.OneDayDecorator;
 import com.apphouse.businessscheduler.main.preview.PreViewDialog;
 import com.apphouse.businessscheduler.util.Util;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
-import me.drakeet.materialdialog.MaterialDialog;
+public class WeekFragment extends Fragment implements WeekContract.View {
 
-public class MainFragment extends Fragment implements MainContract.View {
-
-    private MainContract.Presenter presenter;
+    private WeekContract.Presenter presenter;
     private FragmentMainBinding binding;
     private PreViewDialog preViewDialog;
 
@@ -75,12 +69,11 @@ public class MainFragment extends Fragment implements MainContract.View {
         calendarView.setShowOtherDates(MaterialCalendarView.SHOW_NONE);
         calendarView.setTileHeightDp(calendarViewCellHeight);
         calendarView.addDecorator(new OneDayDecorator(getContext()));
-
         Log.d("처음 나오는 일자", String.valueOf(calendarView.getCurrentDate()));
     }
 
     @Override
-    public void setPresenter(MainContract.Presenter presenter) {
+    public void setPresenter(WeekContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
@@ -98,8 +91,8 @@ public class MainFragment extends Fragment implements MainContract.View {
         return (int) (Util.getScreenSize(getContext()).y - Util.convertDpToPixel(50)) / 8;
     }
 
-    public static MainFragment newInstance() {
-        return new MainFragment();
+    public static WeekFragment newInstance() {
+        return new WeekFragment();
     }
 
 }
