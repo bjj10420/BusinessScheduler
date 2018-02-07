@@ -71,7 +71,16 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     }
 
     private void initScheduleGridView() {
+        setScheduleGridViewAdapter();
+        setResizeGridView();
+    }
+
+    private void setScheduleGridViewAdapter() {
         binding.scheduleGridView.setAdapter(new ScheduleGridAdapter(getContext()));
+    }
+
+    // 스크롤뷰안에 있기때문에 높이재설정필요
+    private void setResizeGridView() {
         binding.scheduleGridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
