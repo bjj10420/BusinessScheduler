@@ -12,6 +12,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
@@ -23,12 +24,14 @@ public class WeekPresenter implements WeekContract.Presenter {
     private final Context context;
     private WeekContract.View mainView;
     private String selectedDate;
+    private HashMap<Integer, ArrayList<Schedule>> schedulesForAMonthOpened;
 
     @SuppressLint("RestrictedApi")
     public WeekPresenter(@NonNull WeekContract.View mainView, Context context) {
         this.mainView = checkNotNull(mainView, "tasksView cannot be null!");
-        mainView.setPresenter(this);
         this.context = context;
+        mainView.setPresenter(this);
+        loadData(mainView.getWeekBiding().calendarView.getCurrentDate());
     }
 
     @Override
@@ -59,9 +62,15 @@ public class WeekPresenter implements WeekContract.Presenter {
 
     @Override
     public void reloadCurrentPageData(MaterialCalendarView calendarView, CalendarDay calendarDay) {
-        calendarView.removeDecorators();
-        calendarView.addDecorator(new OneDayDecorator(context, calendarDay));
+        loadData(calendarDay);
         Log.d("처음 나오는 일자", String.valueOf(calendarView.getCurrentDate()));
+    }
+
+    private void loadData(CalendarDay calendarDay) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMM");
+        String theYearMonth = format.format(calendarDay.getDate());
+        Log.d("loadData 오늘날짜 확인", format.format(calendarDay.getDate()));
+        schedulesForAMonthOpened =  dataHelper.getScheduleMapForAMonth(Integer.parseInt(theYearMonth));
     }
 
     @Override

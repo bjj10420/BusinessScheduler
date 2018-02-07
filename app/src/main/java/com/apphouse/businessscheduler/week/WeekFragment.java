@@ -35,7 +35,12 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_week, container, false);
         View fragmentView = binding.getRoot();
         initView();
+        initPrenter();
         return fragmentView;
+    }
+
+    private void initPrenter() {
+        presenter = new WeekPresenter(this, getContext());
     }
 
     private void initView() {
@@ -58,10 +63,9 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     }
 
     private void initCalendarView(MaterialCalendarView calendarView) {
-        int calendarViewCellHeight = 70;
+        int calendarViewCellHeight = 30;
         calendarView.setShowOtherDates(MaterialCalendarView.SHOW_NONE);
         calendarView.setTileHeightDp(calendarViewCellHeight);
-        calendarView.addDecorator(new OneDayDecorator(getContext()));
         Log.d("처음 나오는 일자", String.valueOf(calendarView.getCurrentDate()));
     }
 
@@ -79,4 +83,8 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         return new WeekFragment();
     }
 
+    @Override
+    public FragmentWeekBinding getWeekBiding() {
+        return binding;
+    }
 }

@@ -59,7 +59,7 @@ public class MainDrawer {
                         switch (position){
                             case 2 :
                                 WeekFragment weekfragment = new WeekFragment();
-                                new WeekPresenter(weekfragment, context);
+
                                 changeFragment(weekfragment,context);
                                 break;
 
