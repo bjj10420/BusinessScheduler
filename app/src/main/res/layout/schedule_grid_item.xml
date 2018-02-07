@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#c8c8c8">
+
+    <TextView
+        android:id="@+id/gridItemText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center" />
+</android.support.constraint.ConstraintLayout>

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.apphouse.businessscheduler.R;
 import com.apphouse.businessscheduler.databinding.FragmentWeekBinding;
 import com.apphouse.businessscheduler.util.Util;
+import com.apphouse.businessscheduler.week.adapter.ScheduleGridAdapter;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
@@ -44,6 +45,7 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     private void initView() {
         initCalendarView(binding.calendarView);
         initTimePanelView();
+        initScheduleGridView();
     }
 
     private void initEvent() {
@@ -63,6 +65,10 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         for(int i = 0; i <= 24; i++){
             binding.timePanel.addView(makeTimePanelBox(i));
         }
+    }
+
+    private void initScheduleGridView() {
+        binding.scheduleGridView.setAdapter(new ScheduleGridAdapter(getContext()));
     }
 
     private View makeTimePanelBox(int time) {
