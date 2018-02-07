@@ -1,5 +1,6 @@
 package com.apphouse.businessscheduler.week;
 
+import android.annotation.SuppressLint;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,23 +26,19 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     private FragmentMainBinding binding;
     private PreViewDialog preViewDialog;
 
+    @SuppressLint("LongLogTag")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+        Log.d("WeekFragment onCreateView", "테스트");
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_week, container, false);
         View fragmentView = binding.getRoot();
         initView();
-        initEvent();
         return fragmentView;
     }
 
     private void initView() {
         initCalendarView(binding.calendarView);
-        initPreView();
-    }
-
-    private void initPreView() {
-        preViewDialog = new PreViewDialog(getContext());
     }
 
     private void initEvent() {
@@ -49,12 +46,7 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     }
 
     private void initCalendarViewEvent() {
-        binding.calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                presenter.actionOnDateClicked(date);
-            }
-        });
+
 
         binding.calendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
