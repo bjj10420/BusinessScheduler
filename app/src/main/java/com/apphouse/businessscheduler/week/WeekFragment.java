@@ -25,7 +25,6 @@ public class WeekFragment extends Fragment implements WeekContract.View {
 
     private WeekContract.Presenter presenter;
     private FragmentWeekBinding binding;
-    private PreViewDialog preViewDialog;
 
     @SuppressLint("LongLogTag")
     @Override
@@ -35,6 +34,7 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_week, container, false);
         View fragmentView = binding.getRoot();
         initView();
+        initEvent();
         initPrenter();
         return fragmentView;
     }
@@ -52,8 +52,6 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     }
 
     private void initCalendarViewEvent() {
-
-
         binding.calendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView calendarView, CalendarDay date) {

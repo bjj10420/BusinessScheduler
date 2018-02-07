@@ -63,13 +63,13 @@ public class WeekPresenter implements WeekContract.Presenter {
     @Override
     public void reloadCurrentPageData(MaterialCalendarView calendarView, CalendarDay calendarDay) {
         loadData(calendarDay);
-        Log.d("처음 나오는 일자", String.valueOf(calendarView.getCurrentDate()));
+        Log.d("처음 나오는 일자", String.valueOf(calendarDay));
     }
 
-    private void loadData(CalendarDay calendarDay) {
+    private void loadData(CalendarDay currentPageCalendarDay) {
         SimpleDateFormat format = new SimpleDateFormat("yyyyMM");
-        String theYearMonth = format.format(calendarDay.getDate());
-        Log.d("loadData 오늘날짜 확인", format.format(calendarDay.getDate()));
+        String theYearMonth = format.format(currentPageCalendarDay.getDate());
+        Log.d("loadData 오늘날짜 확인", format.format(currentPageCalendarDay.getDate()));
         schedulesForAMonthOpened =  dataHelper.getScheduleMapForAMonth(Integer.parseInt(theYearMonth));
     }
 
