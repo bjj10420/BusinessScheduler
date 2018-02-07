@@ -5,7 +5,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.apphouse.businessscheduler.main.decorator.OneDayDecorator;
 import com.apphouse.businessscheduler.vo.Schedule;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -32,6 +31,7 @@ public class WeekPresenter implements WeekContract.Presenter {
         this.context = context;
         mainView.setPresenter(this);
         loadData(calendarDay);
+
     }
 
     @Override
