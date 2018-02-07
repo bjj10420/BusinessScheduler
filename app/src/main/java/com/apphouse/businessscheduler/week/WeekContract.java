@@ -14,7 +14,7 @@ public interface WeekContract {
 
     interface Presenter extends CoreActivityPresenter {
 
-    void actionOnDateClicked(CalendarDay date);
+    void actionOnCellClicked(CalendarDay date);
 
     void setSelectedDateData(CalendarDay date);
 

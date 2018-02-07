@@ -47,32 +47,14 @@ public class WeekPresenter implements WeekContract.Presenter {
     }
 
     @Override
-    public void actionOnDateClicked(CalendarDay date) {
-        setSelectedDateData(date);
-        if(isOverflowDate(date)) {
-            setSchedulsForADay(date);
-        }
-        else
-            goToAddPageOnAddBtnClicked();
-    }
+    public void actionOnCellClicked(CalendarDay date) {
 
-    private void setSchedulsForADay(CalendarDay date) {
-        ArrayList<Schedule> schedulesForADay = dataHelper.getSchedulesForADay(date, selectedDate);
-        dataHelper.setSchedulsForADay(schedulesForADay);
     }
 
     @Override
     public void setSelectedDateData(CalendarDay date) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         selectedDate = formatter.format(date.getDate());
-    }
-
-    private boolean isOverflowDate(CalendarDay date) {
-        ArrayList<Schedule> schedulesForADay = dataHelper.getSchedulesForADay(date, selectedDate);
-        if(schedulesForADay == null)
-            return  false;
-        else
-            return schedulesForADay.size() > 2;
     }
 
     @Override
