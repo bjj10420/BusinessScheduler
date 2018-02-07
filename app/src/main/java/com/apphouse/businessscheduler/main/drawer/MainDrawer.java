@@ -2,8 +2,17 @@ package com.apphouse.businessscheduler.main.drawer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
+import com.apphouse.businessscheduler.R;
+import com.apphouse.businessscheduler.main.MainActivity;
+import com.apphouse.businessscheduler.main.MainFragment;
+import com.apphouse.businessscheduler.main.MainPresenter;
+import com.apphouse.businessscheduler.week.WeekFragment;
+import com.apphouse.businessscheduler.week.WeekPresenter;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -20,7 +29,7 @@ public class MainDrawer {
 
     }
 
-    public void init(Context context){
+    public void init(final Context context){
 
         PrimaryDrawerItem item0 = createPrimaryItem(0, "TASKS", Ionicons.Icon.ion_ios_list);
         PrimaryDrawerItem item1 = createPrimaryItem(1, "DAY", Ionicons.Icon.ion_ios_time);
@@ -47,12 +56,34 @@ public class MainDrawer {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
 
+                        switch (position){
+                            case 2 :
+                                WeekFragment weekfragment = new WeekFragment();
+                                new WeekPresenter(weekfragment, context);
+                                changeFragment(weekfragment,context);
+                                break;
+
+                            case 3 :
+                                MainFragment fragment = new MainFragment();
+                                new MainPresenter(fragment, context);
+                                changeFragment(fragment,context);
+                                break;
+
+                        }
                         return false;
                     }
                 })
                 .build();
-        drawer.setSelection(3);
+        drawer.setSelection(3, false);
+//        drawer.setSelection(3);
         drawer.addStickyFooterItem(new PrimaryDrawerItem().withName("Business Scheduler"));
+    }
+
+    private void changeFragment(Fragment fragment, Context context) {
+        FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace( R.id.contentLayout, fragment );
+        fragmentTransaction.commit();
     }
 
     private PrimaryDrawerItem createPrimaryItem(int identifier, String year, Ionicons.Icon iconView) {

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.apphouse.businessscheduler.R;
 import com.apphouse.businessscheduler.databinding.FragmentMainBinding;
+import com.apphouse.businessscheduler.databinding.FragmentWeekBinding;
 import com.apphouse.businessscheduler.main.decorator.OneDayDecorator;
 import com.apphouse.businessscheduler.main.preview.PreViewDialog;
 import com.apphouse.businessscheduler.util.Util;
@@ -23,7 +24,7 @@ import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 public class WeekFragment extends Fragment implements WeekContract.View {
 
     private WeekContract.Presenter presenter;
-    private FragmentMainBinding binding;
+    private FragmentWeekBinding binding;
     private PreViewDialog preViewDialog;
 
     @SuppressLint("LongLogTag")
