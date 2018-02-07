@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,6 +75,7 @@ public class MainFragment extends Fragment implements MainContract.View {
         calendarView.setShowOtherDates(MaterialCalendarView.SHOW_NONE);
         calendarView.setTileHeightDp(calendarViewCellHeight);
         calendarView.addDecorator(new OneDayDecorator(getContext()));
+        Log.d("처음 나오는 일자", String.valueOf(calendarView.getCurrentDate()));
     }
 
     @Override

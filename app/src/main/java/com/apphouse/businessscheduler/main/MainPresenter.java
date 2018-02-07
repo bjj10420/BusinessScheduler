@@ -83,6 +83,7 @@ public class MainPresenter implements MainContract.Presenter {
     public void reloadCurrentPageData(MaterialCalendarView calendarView, CalendarDay calendarDay) {
         calendarView.removeDecorators();
         calendarView.addDecorator(new OneDayDecorator(context, calendarDay));
+        Log.d("처음 나오는 일자", String.valueOf(calendarView.getCurrentDate()));
     }
 
     @Override
