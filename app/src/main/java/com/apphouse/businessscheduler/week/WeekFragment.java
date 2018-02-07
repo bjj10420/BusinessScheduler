@@ -9,6 +9,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,6 +26,7 @@ public class WeekFragment extends Fragment implements WeekContract.View {
 
     private WeekContract.Presenter presenter;
     private FragmentWeekBinding binding;
+    private boolean gridViewResized;
 
     @SuppressLint("LongLogTag")
     @Override
@@ -62,13 +65,22 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     }
 
     private void initTimePanelView() {
-        for(int i = 0; i <= 24; i++){
+        for (int i = 0; i <= 24; i++) {
             binding.timePanel.addView(makeTimePanelBox(i));
         }
     }
 
     private void initScheduleGridView() {
         binding.scheduleGridView.setAdapter(new ScheduleGridAdapter(getContext()));
+        binding.scheduleGridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (!gridViewResized) {
+                    gridViewResized = true;
+                    resizeGridView(binding.scheduleGridView, 175, 7);
+                }
+            }
+        });
     }
 
     private View makeTimePanelBox(int time) {
@@ -93,5 +105,12 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         this.presenter = presenter;
     }
 
+    private void resizeGridView(GridView gridView, int items, int columns) {
+        ViewGroup.LayoutParams params = gridView.getLayoutParams();
+        int oneRowHeight = gridView.getHeight();
+        int rows = (int) (items / columns);
+        params.height = oneRowHeight * rows;
+        gridView.setLayoutParams(params);
+    }
 
 }
