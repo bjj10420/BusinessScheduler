@@ -2,7 +2,10 @@ package com.apphouse.businessscheduler.inter;
 
 public interface CoreActivityPresenter extends BasePresenter {
 
-    void goToDetailPageOnItemSelected();
+    void goToAddPageOnAddBtnClicked();
+
+    void goToDetailPage();
 
     void refresh();
+
 }

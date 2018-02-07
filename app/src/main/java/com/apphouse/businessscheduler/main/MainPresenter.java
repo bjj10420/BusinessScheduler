@@ -87,11 +87,6 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void goToDetailPageOnItemSelected() {
-
-    }
-
-    @Override
     public void refresh() {
 
     }

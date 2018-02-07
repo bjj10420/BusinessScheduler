@@ -77,15 +77,6 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         this.presenter = presenter;
     }
 
-    @Override
-    public void showPreviewOnItemSelected() {
-        preViewDialog.showPreViewDialog();
-    }
-
-    @Override
-    public void hidePreviewOnItemSelected() {
-
-    }
 
     private int getCellHeight() {
         return (int) (Util.getScreenSize(getContext()).y - Util.convertDpToPixel(50)) / 8;

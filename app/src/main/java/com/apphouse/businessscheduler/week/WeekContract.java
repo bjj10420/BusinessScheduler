@@ -10,17 +10,9 @@ public interface WeekContract {
 
     interface View extends BaseView<Presenter> {
 
-        void showPreviewOnItemSelected();
-
-        void hidePreviewOnItemSelected();
-
     }
 
     interface Presenter extends CoreActivityPresenter {
-
-    void goToAddPageOnAddBtnClicked();
-
-    void goToDetailPage();
 
     void actionOnDateClicked(CalendarDay date);
 

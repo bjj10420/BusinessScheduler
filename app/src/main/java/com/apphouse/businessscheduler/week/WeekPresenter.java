@@ -24,7 +24,6 @@ public class WeekPresenter implements WeekContract.Presenter {
     private WeekContract.View mainView;
     private String selectedDate;
 
-
     @SuppressLint("RestrictedApi")
     public WeekPresenter(@NonNull WeekContract.View mainView, Context context) {
         this.mainView = checkNotNull(mainView, "tasksView cannot be null!");
@@ -52,7 +51,6 @@ public class WeekPresenter implements WeekContract.Presenter {
         setSelectedDateData(date);
         if(isOverflowDate(date)) {
             setSchedulsForADay(date);
-            mainView.showPreviewOnItemSelected();
         }
         else
             goToAddPageOnAddBtnClicked();
@@ -82,11 +80,6 @@ public class WeekPresenter implements WeekContract.Presenter {
         calendarView.removeDecorators();
         calendarView.addDecorator(new OneDayDecorator(context, calendarDay));
         Log.d("처음 나오는 일자", String.valueOf(calendarView.getCurrentDate()));
-    }
-
-    @Override
-    public void goToDetailPageOnItemSelected() {
-
     }
 
     @Override

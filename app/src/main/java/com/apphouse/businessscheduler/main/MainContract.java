@@ -18,10 +18,6 @@ public interface MainContract {
 
     interface Presenter extends CoreActivityPresenter {
 
-    void goToAddPageOnAddBtnClicked();
-
-    void goToDetailPage();
-
     void actionOnDateClicked(CalendarDay date);
 
     void setSelectedDateData(CalendarDay date);
