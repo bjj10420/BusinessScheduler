@@ -31,7 +31,6 @@ public class WeekPresenter implements WeekContract.Presenter {
         this.context = context;
         mainView.setPresenter(this);
         loadData(calendarDay);
-
     }
 
     @Override

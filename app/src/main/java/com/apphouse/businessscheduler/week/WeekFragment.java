@@ -3,22 +3,20 @@ package com.apphouse.businessscheduler.week;
 import android.annotation.SuppressLint;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.apphouse.businessscheduler.R;
-import com.apphouse.businessscheduler.databinding.FragmentMainBinding;
 import com.apphouse.businessscheduler.databinding.FragmentWeekBinding;
-import com.apphouse.businessscheduler.main.decorator.OneDayDecorator;
-import com.apphouse.businessscheduler.main.preview.PreViewDialog;
 import com.apphouse.businessscheduler.util.Util;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 public class WeekFragment extends Fragment implements WeekContract.View {
@@ -45,6 +43,7 @@ public class WeekFragment extends Fragment implements WeekContract.View {
 
     private void initView() {
         initCalendarView(binding.calendarView);
+        initTimePanelView();
     }
 
     private void initEvent() {
@@ -58,6 +57,22 @@ public class WeekFragment extends Fragment implements WeekContract.View {
                 presenter.reloadCurrentPageData(calendarView, date);
             }
         });
+    }
+
+    private void initTimePanelView() {
+        for(int i = 0; i <= 24; i++){
+            binding.timePanel.addView(makeTimePanelBox(i));
+        }
+    }
+
+    private View makeTimePanelBox(int time) {
+        TextView timePanleBox = new TextView(getContext());
+        LinearLayout.LayoutParams preViewParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                (int) Util.convertDpToPixel(50));
+        timePanleBox.setGravity(Gravity.CENTER);
+        timePanleBox.setLayoutParams(preViewParams);
+        timePanleBox.setText(time < 10 ? "0" + time : String.valueOf(time));
+        return timePanleBox;
     }
 
     private void initCalendarView(MaterialCalendarView calendarView) {

@@ -2,20 +2,47 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
             app:mcv_calendarMode="week"
             app:mcv_selectionColor="#4e4e4e" />
 
+        <LinearLayout
+            android:id="@+id/timePanel"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/calendarView"
+            android:orientation="vertical"
+            >
 
-    </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="00" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="01" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="02" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 
 </layout>
