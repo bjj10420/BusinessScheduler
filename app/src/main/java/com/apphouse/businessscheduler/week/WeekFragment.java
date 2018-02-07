@@ -40,7 +40,7 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     }
 
     private void initPrenter() {
-        presenter = new WeekPresenter(this, getContext());
+        presenter = new WeekPresenter(this, getContext(), binding.calendarView.getCurrentDate());
     }
 
     private void initView() {
@@ -75,16 +75,4 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     }
 
 
-    private int getCellHeight() {
-        return (int) (Util.getScreenSize(getContext()).y - Util.convertDpToPixel(50)) / 8;
-    }
-
-    public static WeekFragment newInstance() {
-        return new WeekFragment();
-    }
-
-    @Override
-    public FragmentWeekBinding getWeekBiding() {
-        return binding;
-    }
 }

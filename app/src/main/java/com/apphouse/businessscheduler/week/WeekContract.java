@@ -12,7 +12,6 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 public interface WeekContract {
 
     interface View extends BaseView<Presenter> {
-    FragmentWeekBinding getWeekBiding();
     }
 
     interface Presenter extends CoreActivityPresenter {

@@ -27,11 +27,11 @@ public class WeekPresenter implements WeekContract.Presenter {
     private HashMap<Integer, ArrayList<Schedule>> schedulesForAMonthOpened;
 
     @SuppressLint("RestrictedApi")
-    public WeekPresenter(@NonNull WeekContract.View mainView, Context context) {
+    public WeekPresenter(@NonNull WeekContract.View mainView, Context context, CalendarDay calendarDay) {
         this.mainView = checkNotNull(mainView, "tasksView cannot be null!");
         this.context = context;
         mainView.setPresenter(this);
-        loadData(mainView.getWeekBiding().calendarView.getCurrentDate());
+        loadData(calendarDay);
     }
 
     @Override
