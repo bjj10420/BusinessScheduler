@@ -9,7 +9,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,12 +16,14 @@ import android.widget.TextView;
 import com.apphouse.businessscheduler.R;
 import com.apphouse.businessscheduler.databinding.FragmentWeekBinding;
 import com.apphouse.businessscheduler.util.Util;
+import com.apphouse.businessscheduler.vo.Schedule;
 import com.apphouse.businessscheduler.week.adapter.ScheduleGridAdapter;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -71,6 +72,7 @@ public class WeekFragment extends Fragment implements WeekContract.View {
 
     private void initScheduleGridView() {
         setScheduleGridViewAdapter();
+        loadScheduleGridViewWithData(binding.calendarView);
     }
 
     private void setScheduleGridViewAdapter() {
@@ -92,25 +94,31 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         int calendarViewCellHeight = 30;
         calendarView.setShowOtherDates(MaterialCalendarView.SHOW_NONE);
         calendarView.setTileHeightDp(calendarViewCellHeight);
-        calculateMainDates(calendarView);
     }
 
-    private void calculateMainDates(MaterialCalendarView calendarView) {
+    private void loadScheduleGridViewWithData(MaterialCalendarView calendarView) {
         Calendar newCalendar = calendarView.getCurrentDate().getCalendar();
-        getScheduleDataForIndex(newCalendar, 0);
-        getScheduleDataForIndex(newCalendar, 1);
-        getScheduleDataForIndex(newCalendar, 2);
-        getScheduleDataForIndex(newCalendar, 3);
-        getScheduleDataForIndex(newCalendar, 4);
+        for(int i = 0; i < 5; i++){
+            ArrayList<Schedule> scheduleListForADay = getScheduleDataForIndex(newCalendar, i);
+            fillSchedulesForAday(scheduleListForADay);
+        }
+    }
+
+    private void fillSchedulesForAday(ArrayList<Schedule> scheduleListForADay) {
+
+        for(Schedule schedule : scheduleListForADay){
+            String fromTime = schedule.getFromTime();
+            String toTime = schedule.getFromTime();
+        }
     }
 
     @SuppressLint("LongLogTag")
-    private void getScheduleDataForIndex(Calendar newCalendar, int index) {
+    private ArrayList<Schedule> getScheduleDataForIndex(Calendar newCalendar, int index) {
         newCalendar.add(Calendar.DAY_OF_WEEK, index);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         String selectedDate = formatter.format(newCalendar.getTime());
-        Log.d("getScheduleDataForIndex 결과", String.valueOf(dataHelper.getSchedulesForADay(newCalendar.getTime().getDate(), selectedDate)));
         newCalendar.add(Calendar.DAY_OF_WEEK, -index);
+        return dataHelper.getSchedulesForADay(newCalendar.getTime().getDate(), selectedDate);
     }
 
     @Override
