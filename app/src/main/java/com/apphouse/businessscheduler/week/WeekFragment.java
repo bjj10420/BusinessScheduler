@@ -98,18 +98,35 @@ public class WeekFragment extends Fragment implements WeekContract.View {
 
     private void loadScheduleGridViewWithData(MaterialCalendarView calendarView) {
         Calendar newCalendar = calendarView.getCurrentDate().getCalendar();
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i <= 6; i++){
             ArrayList<Schedule> scheduleListForADay = getScheduleDataForIndex(newCalendar, i);
-            fillSchedulesForAday(scheduleListForADay);
+            fillSchedulesForAday(scheduleListForADay, i+1);
         }
     }
 
-    private void fillSchedulesForAday(ArrayList<Schedule> scheduleListForADay) {
+    private void fillSchedulesForAday(ArrayList<Schedule> scheduleListForADay, int beginIndex) {
+        if(scheduleListForADay == null) return;
 
         for(Schedule schedule : scheduleListForADay){
+            Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getDate()));
+            Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getFromTime()));
+            Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getToTime()));
+            Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getScheduleName()));
             String fromTime = schedule.getFromTime();
-            String toTime = schedule.getFromTime();
+            String toTime = schedule.getToTime();
+            int [] theGridIndexes = findGridIndexes(beginIndex, fromTime, toTime);
+//            binding.scheduleGridView.getChildAt(theGridIndexes);
         }
+    }
+
+    private int[] findGridIndexes(int beginIndex, String fromTime, String toTime) {
+        int[] indexes = new int[Integer.parseInt(toTime) - Integer.parseInt(fromTime)];
+        for(int j = 0; j < indexes.length -1; j++){
+            int theIndex = beginIndex + ((Integer.parseInt(fromTime)) * 8) + (j * 8);
+            Log.d("인덱스값을 확인해보아요", String.valueOf(theIndex));
+            indexes[j] = theIndex;
+        }
+        return indexes;
     }
 
     @SuppressLint("LongLogTag")
@@ -117,8 +134,9 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         newCalendar.add(Calendar.DAY_OF_WEEK, index);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         String selectedDate = formatter.format(newCalendar.getTime());
+        ArrayList<Schedule> schedulesForAday = dataHelper.getSchedulesForADay(newCalendar.getTime().getDate(), selectedDate);
         newCalendar.add(Calendar.DAY_OF_WEEK, -index);
-        return dataHelper.getSchedulesForADay(newCalendar.getTime().getDate(), selectedDate);
+        return schedulesForAday;
     }
 
     @Override

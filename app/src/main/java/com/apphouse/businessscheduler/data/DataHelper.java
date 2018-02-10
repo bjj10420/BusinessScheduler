@@ -40,8 +40,8 @@ public class DataHelper {
         schedule.setScheduleName("test schedule2");
         schedule.setColor("blue");
         schedule.setTime("05:00 ~ 10:00");
-        schedule0.setFromTime("5");
-        schedule0.setToTime("8");
+        schedule.setFromTime("5");
+        schedule.setToTime("8");
         schedule.setDate("20180208");
         schedule.setMemo("Hello");
         dbHelper.insertSchedule(schedule);
@@ -50,26 +50,12 @@ public class DataHelper {
         schedule2.setScheduleName("test schedule5");
         schedule2.setColor("blue");
         schedule2.setTime("05:00 ~ 10:00");
-        schedule0.setFromTime("3");
-        schedule0.setToTime("9");
+        schedule2.setFromTime("3");
+        schedule2.setToTime("9");
         schedule2.setDate("20180210");
         schedule2.setMemo("Hello");
         dbHelper.insertSchedule(schedule2);
 
-        Schedule schedule3 = new Schedule();
-        schedule3.setScheduleName("real?!!!!");
-        schedule3.setColor("blue");
-        schedule3.setTime("05:00 ~ 10:00");
-        schedule3.setDate("20180115");
-        schedule3.setMemo("Hello");
-        dbHelper.insertSchedule(schedule3);
-
-        Schedule schedule4 = new Schedule();
-        schedule4.setScheduleName("wow!!!!");
-        schedule4.setColor("blue");
-        schedule4.setDate("20171015");
-        schedule4.setMemo("Hello");
-        dbHelper.insertSchedule(schedule4);
     }
 
     public ArrayList<Schedule> getSchedulesForADay(Integer day, String selectedDate) {
