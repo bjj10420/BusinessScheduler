@@ -47,7 +47,6 @@ public class WeekFragment extends Fragment implements WeekContract.View {
 
     private void initView() {
         initCalendarView(binding.calendarView);
-        initTimePanelView();
         initScheduleGridView();
     }
 
@@ -64,32 +63,12 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         });
     }
 
-    private void initTimePanelView() {
-        for (int i = 0; i <= 24; i++) {
-            binding.timePanel.addView(makeTimePanelBox(i));
-        }
-    }
-
     private void initScheduleGridView() {
         setScheduleGridViewAdapter();
-        setResizeGridView();
     }
 
     private void setScheduleGridViewAdapter() {
         binding.scheduleGridView.setAdapter(new ScheduleGridAdapter(getContext()));
-    }
-
-    // 스크롤뷰안에 있기때문에 높이재설정필요
-    private void setResizeGridView() {
-        binding.scheduleGridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (!gridViewResized) {
-                    gridViewResized = true;
-                    resizeGridView(binding.scheduleGridView, 175, 7);
-                }
-            }
-        });
     }
 
     private View makeTimePanelBox(int time) {

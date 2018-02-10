@@ -19,7 +19,7 @@ public class ScheduleGridAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return 175;
+        return 198;
     }
 
     @Override

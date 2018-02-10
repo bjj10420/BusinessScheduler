@@ -2,39 +2,27 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendarView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            app:mcv_calendarMode="week"
+            app:mcv_selectionColor="#4e4e4e" />
 
-            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                app:mcv_calendarMode="week"
-                app:mcv_selectionColor="#4e4e4e" />
+        <GridView
+            android:id="@+id/scheduleGridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/calendarView"
+            android:columnWidth="40dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth" />
 
-            <LinearLayout
-                android:id="@+id/timePanel"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_below="@id/calendarView"
-                android:orientation="vertical"></LinearLayout>
-
-            <GridView
-                android:id="@+id/scheduleGridView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/calendarView"
-                android:layout_toRightOf="@id/timePanel"
-                android:columnWidth="40dp"
-                android:numColumns="auto_fit"
-                android:stretchMode="columnWidth" />
-
-        </RelativeLayout>
-    </ScrollView>
+    </RelativeLayout>
 </layout>
