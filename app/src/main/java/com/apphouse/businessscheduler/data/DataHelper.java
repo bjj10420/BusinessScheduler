@@ -30,6 +30,8 @@ public class DataHelper {
         schedule0.setScheduleName("test schedule1");
         schedule0.setColor("blue");
         schedule0.setTime("05:00 ~ 10:00");
+        schedule0.setFromTime("5");
+        schedule0.setToTime("6");
         schedule0.setDate("20180207");
         schedule0.setMemo("Hello");
         dbHelper.insertSchedule(schedule0);
@@ -38,6 +40,8 @@ public class DataHelper {
         schedule.setScheduleName("test schedule2");
         schedule.setColor("blue");
         schedule.setTime("05:00 ~ 10:00");
+        schedule0.setFromTime("5");
+        schedule0.setToTime("8");
         schedule.setDate("20180208");
         schedule.setMemo("Hello");
         dbHelper.insertSchedule(schedule);
@@ -46,6 +50,8 @@ public class DataHelper {
         schedule2.setScheduleName("test schedule5");
         schedule2.setColor("blue");
         schedule2.setTime("05:00 ~ 10:00");
+        schedule0.setFromTime("3");
+        schedule0.setToTime("9");
         schedule2.setDate("20180210");
         schedule2.setMemo("Hello");
         dbHelper.insertSchedule(schedule2);
