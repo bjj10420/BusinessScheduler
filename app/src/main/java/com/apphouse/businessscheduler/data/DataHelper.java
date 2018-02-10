@@ -25,6 +25,15 @@ public class DataHelper {
     }
 
     public void insertTest() {
+
+        Schedule schedule0 = new Schedule();
+        schedule0.setScheduleName("test schedule1");
+        schedule0.setColor("blue");
+        schedule0.setTime("05:00 ~ 10:00");
+        schedule0.setDate("20180207");
+        schedule0.setMemo("Hello");
+        dbHelper.insertSchedule(schedule0);
+
         Schedule schedule = new Schedule();
         schedule.setScheduleName("test schedule2");
         schedule.setColor("blue");
