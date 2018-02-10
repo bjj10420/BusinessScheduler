@@ -13,6 +13,7 @@ public class ScheduleGridAdapter extends BaseAdapter {
 
     LayoutInflater li;
 
+
     public ScheduleGridAdapter(Context context) {
         this.li = LayoutInflater.from(context);
     }
@@ -55,7 +56,7 @@ public class ScheduleGridAdapter extends BaseAdapter {
         return timePanelItemView;
     }
     private void setTimePanelView(View timePanelItemView, int position) {
-        int hour = position / 7;
+        int hour = position / 8;
         if(hour == 24)
             hour = 23;
         ((TextView) timePanelItemView.findViewById(R.id.gridTimePanelItemText)).setText(
@@ -75,6 +76,5 @@ public class ScheduleGridAdapter extends BaseAdapter {
     private boolean isTimePanel(int position) {
         return position % 8 == 0;
     }
-
 
 }
