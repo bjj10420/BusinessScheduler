@@ -121,7 +121,7 @@ public class WeekFragment extends Fragment implements WeekContract.View {
 
     private int[] findGridIndexes(int beginIndex, String fromTime, String toTime) {
         int[] indexes = new int[Integer.parseInt(toTime) - Integer.parseInt(fromTime)];
-        for (int j = 0; j < indexes.length - 1; j++) {
+        for (int j = 0; j < indexes.length; j++) {
             int theIndex = beginIndex + ((Integer.parseInt(fromTime)) * 8) + (j * 8);
             Log.d("인덱스값을 확인해보아요", String.valueOf(theIndex));
             indexes[j] = theIndex;
