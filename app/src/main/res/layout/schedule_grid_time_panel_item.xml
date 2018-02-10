@@ -8,5 +8,6 @@
         android:id="@+id/gridTimePanelItemText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center" />
+        android:gravity="center_horizontal"
+        android:paddingTop="5dp" />
 </android.support.constraint.ConstraintLayout>
