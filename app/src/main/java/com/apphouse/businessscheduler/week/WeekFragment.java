@@ -102,7 +102,6 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         getScheduleDataForIndex(newCalendar, 2);
         getScheduleDataForIndex(newCalendar, 3);
         getScheduleDataForIndex(newCalendar, 4);
-
     }
 
     @SuppressLint("LongLogTag")
