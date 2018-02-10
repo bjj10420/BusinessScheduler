@@ -22,6 +22,12 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
+import static com.apphouse.businessscheduler.data.DataHelper.dataHelper;
+
 public class WeekFragment extends Fragment implements WeekContract.View {
 
     private WeekContract.Presenter presenter;
@@ -81,11 +87,31 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         return timePanleBox;
     }
 
+    @SuppressLint("LongLogTag")
     private void initCalendarView(MaterialCalendarView calendarView) {
         int calendarViewCellHeight = 30;
         calendarView.setShowOtherDates(MaterialCalendarView.SHOW_NONE);
         calendarView.setTileHeightDp(calendarViewCellHeight);
-        Log.d("처음 나오는 일자", String.valueOf(calendarView.getCurrentDate()));
+        calculateMainDates(calendarView);
+    }
+
+    private void calculateMainDates(MaterialCalendarView calendarView) {
+        Calendar newCalendar = calendarView.getCurrentDate().getCalendar();
+        getScheduleDataForIndex(newCalendar, 0);
+        getScheduleDataForIndex(newCalendar, 1);
+        getScheduleDataForIndex(newCalendar, 2);
+        getScheduleDataForIndex(newCalendar, 3);
+        getScheduleDataForIndex(newCalendar, 4);
+
+    }
+
+    @SuppressLint("LongLogTag")
+    private void getScheduleDataForIndex(Calendar newCalendar, int index) {
+        newCalendar.add(Calendar.DAY_OF_WEEK, index);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        String selectedDate = formatter.format(newCalendar.getTime());
+        Log.d("getScheduleDataForIndex 결과", String.valueOf(dataHelper.getSchedulesForADay(newCalendar.getTime().getDate(), selectedDate)));
+        newCalendar.add(Calendar.DAY_OF_WEEK, -index);
     }
 
     @Override

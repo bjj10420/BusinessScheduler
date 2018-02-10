@@ -55,7 +55,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 .append(orderValue_colum).append(" INTEGER, ")
                 .append(timeValue_colum).append(" TEXT, ")
                 .append(memoValue_colum).append(" TEXT, ")
-                .append(colorValue_colum).append(" TEXT")
+                .append(colorValue_colum).append(" TEXT, ")
                 .append(fromTimeValue_colum).append(" TEXT, ")
                 .append(toTimeValue_colum).append(" TEXT) ")
                 .toString();

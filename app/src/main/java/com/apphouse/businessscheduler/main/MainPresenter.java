@@ -61,7 +61,7 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     private void setSchedulsForADay(CalendarDay date) {
-        ArrayList<Schedule> schedulesForADay = dataHelper.getSchedulesForADay(date, selectedDate);
+        ArrayList<Schedule> schedulesForADay = dataHelper.getSchedulesForADay(date.getDay(), selectedDate);
         dataHelper.setSchedulsForADay(schedulesForADay);
     }
 
@@ -72,7 +72,7 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     private boolean isOverflowDate(CalendarDay date) {
-        ArrayList<Schedule> schedulesForADay = dataHelper.getSchedulesForADay(date, selectedDate);
+        ArrayList<Schedule> schedulesForADay = dataHelper.getSchedulesForADay(date.getDay(), selectedDate);
         if(schedulesForADay == null)
             return  false;
         else

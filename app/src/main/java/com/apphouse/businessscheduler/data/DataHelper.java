@@ -57,10 +57,10 @@ public class DataHelper {
         dbHelper.insertSchedule(schedule4);
     }
 
-    public ArrayList<Schedule> getSchedulesForADay(CalendarDay date, String selectedDate) {
+    public ArrayList<Schedule> getSchedulesForADay(Integer day, String selectedDate) {
         HashMap<Integer, ArrayList<Schedule>> schedulesForAMonth =
                 getScheduleMapForAMonth(Integer.parseInt(Util.getYearMonthFromDate(selectedDate)));
-        ArrayList<Schedule> schedulesForADay = schedulesForAMonth.get(date.getDay());
+        ArrayList<Schedule> schedulesForADay = schedulesForAMonth.get(day);
         return  schedulesForADay;
     }
 
