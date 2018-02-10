@@ -56,6 +56,8 @@ public class ScheduleGridAdapter extends BaseAdapter {
     }
     private void setTimePanelView(View timePanelItemView, int position) {
         int hour = position / 7;
+        if(hour == 24)
+            hour = 23;
         ((TextView) timePanelItemView.findViewById(R.id.gridTimePanelItemText)).setText(
                 hour < 10 ? "0" + hour : String.valueOf(hour));
     }
