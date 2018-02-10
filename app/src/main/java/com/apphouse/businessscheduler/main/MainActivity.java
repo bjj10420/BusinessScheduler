@@ -20,7 +20,6 @@ public class MainActivity extends CoreActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("순서테스트", "MainActivity onCreate");
-        //
         setContentView(R.layout.activity_main);
         init();
     }
