@@ -60,7 +60,6 @@ public class ScheduleGridAdapter extends BaseAdapter {
             hour = 23;
         ((TextView) timePanelItemView.findViewById(R.id.gridTimePanelItemText)).setText(
                 hour < 10 ? "0" + hour : String.valueOf(hour));
-        //
     }
 
     private View makeNormalItemView(int position) {

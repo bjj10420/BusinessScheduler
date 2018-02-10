@@ -33,7 +33,8 @@ public class DBHelper extends SQLiteOpenHelper {
     String timeValue_colum = "timeValue";
     String memoValue_colum = "memoValue";
     String colorValue_colum = "colorValue";
-
+    String fromTimeValue_colum = "fromTime";
+    String toTimeValue_colum = "toTime";
 
     public DBHelper(Context context)
     {
@@ -54,7 +55,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 .append(orderValue_colum).append(" INTEGER, ")
                 .append(timeValue_colum).append(" TEXT, ")
                 .append(memoValue_colum).append(" TEXT, ")
-                .append(colorValue_colum).append(" TEXT)")
+                .append(colorValue_colum).append(" TEXT")
+                .append(fromTimeValue_colum).append(" TEXT, ")
+                .append(toTimeValue_colum).append(" TEXT) ")
                 .toString();
         db.execSQL(sql);
 
@@ -79,6 +82,9 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(timeValue_colum, schedule.getTime());
         values.put(memoValue_colum, schedule.getMemo());
         values.put(colorValue_colum, schedule.getColor());
+        values.put(fromTimeValue_colum, schedule.getFromTime());
+        values.put(toTimeValue_colum, schedule.getToTime());
+
         long result = DB.insert(scheduleTableName, null, values);
         Log.d("인설트스케쥴 체크", "인설트 결과 = " + result);
 
@@ -104,6 +110,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 schedule.setMemo(c.getString(c.getColumnIndex(memoValue_colum)));
                 schedule.setTime(c.getString(c.getColumnIndex(timeValue_colum)));
                 schedule.setColor(c.getString(c.getColumnIndex(colorValue_colum)));
+                schedule.setFromTime(c.getString(c.getColumnIndex(fromTimeValue_colum)));
+                schedule.setToTime(c.getString(c.getColumnIndex(toTimeValue_colum)));
+
                 String scheduleYearMonth = Util.getYearMonthFromDate(scheduleDate);
                 // 스케쥴 추가
                 addScheduleToMapByMonth(allScheduleMap, Integer.parseInt(scheduleYearMonth), schedule);

@@ -14,6 +14,8 @@ public class Schedule {
     String time;
     String memo;
     String color;
+    String fromTime;
+    String toTime;
 
     public int getNo() {
         return no;
@@ -69,5 +71,21 @@ public class Schedule {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getFromTime() {
+        return fromTime;
+    }
+
+    public void setFromTime(String fromTime) {
+        this.fromTime = fromTime;
+    }
+
+    public String getToTime() {
+        return toTime;
+    }
+
+    public void setToTime(String toTime) {
+        this.toTime = toTime;
     }
 }
