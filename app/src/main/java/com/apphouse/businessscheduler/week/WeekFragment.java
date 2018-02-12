@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,7 +34,7 @@ public class WeekFragment extends Fragment implements WeekContract.View {
 
     private WeekContract.Presenter presenter;
     private FragmentWeekBinding binding;
-    private boolean gridViewResized;
+    private ScheduleGridAdapter adapter;
 
     @SuppressLint("LongLogTag")
     @Override
@@ -73,7 +72,11 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     }
 
     private void initScheduleGridView() {
-        setScheduleGridViewAdapter();
+        initScheduleGridViewAdapter();
+        initScheduleGridData();
+    }
+
+    private void initScheduleGridData() {
         binding.scheduleGridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -82,8 +85,9 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         });
     }
 
-    private void setScheduleGridViewAdapter() {
-        binding.scheduleGridView.setAdapter(new ScheduleGridAdapter(getContext()));
+    private void initScheduleGridViewAdapter() {
+        adapter = new ScheduleGridAdapter(getContext());
+        binding.scheduleGridView.setAdapter(adapter);
     }
 
     private View makeTimePanelBox(int time) {
@@ -124,9 +128,6 @@ public class WeekFragment extends Fragment implements WeekContract.View {
             int [] theGridIndexes = findGridIndexes(beginIndex, fromTime, toTime);
             setGridViewsContents(theGridIndexes, schedule.getScheduleName());
         }
-
-//        binding.scheduleGridView.
-//        binding.scheduleGridView.setAdapter(new ScheduleGridAdapter(getContext()));
     }
 
     private int[] findGridIndexes(int beginIndex, String fromTime, String toTime) {
@@ -146,9 +147,6 @@ public class WeekFragment extends Fragment implements WeekContract.View {
                     )));
             ((TextView)binding.scheduleGridView.getChildAt(gridIndex).findViewById(R.id.gridItemText)).setText(scheduleName);
         }
-
-//        ((BaseAdapter)binding.scheduleGridView.getAdapter()).notifyDataSetChanged();
-
     }
 
 
@@ -165,14 +163,6 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     @Override
     public void setPresenter(WeekContract.Presenter presenter) {
         this.presenter = presenter;
-    }
-
-    private void resizeGridView(GridView gridView, int items, int columns) {
-        ViewGroup.LayoutParams params = gridView.getLayoutParams();
-        int oneRowHeight = gridView.getHeight();
-        int rows = (int) (items / columns);
-        params.height = oneRowHeight * rows;
-        gridView.setLayoutParams(params);
     }
 
 }

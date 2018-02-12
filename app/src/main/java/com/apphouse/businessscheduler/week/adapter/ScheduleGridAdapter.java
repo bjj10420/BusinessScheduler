@@ -2,6 +2,7 @@ package com.apphouse.businessscheduler.week.adapter;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,13 @@ import com.apphouse.businessscheduler.R;
 public class ScheduleGridAdapter extends BaseAdapter {
 
     LayoutInflater li;
+    boolean isSetOnce = false;
+    private SparseArray<View> views;
 
 
     public ScheduleGridAdapter(Context context) {
         this.li = LayoutInflater.from(context);
+        views = new SparseArray<>();
     }
 
     @Override
@@ -36,9 +40,15 @@ public class ScheduleGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View gridItemView, ViewGroup viewGroup) {
-        Log.d("ScheduleGridAdapter", "getView 콜");
-        gridItemView = makeGridItemView(position);
-        gridItemView.setTag(position);
+        Log.d("getView콜", "position = " + position + " view = " + gridItemView);
+        if(gridItemView == null) {
+            gridItemView = makeGridItemView(position);
+            gridItemView.setTag(position);
+            views.put(position, gridItemView);
+        }
+        else
+            gridItemView = views.get(position);
+
         return gridItemView;
     }
 
@@ -79,5 +89,7 @@ public class ScheduleGridAdapter extends BaseAdapter {
         return position % 8 == 0;
     }
 
-
+    public void setSetOnce(boolean setOnce) {
+        isSetOnce = setOnce;
+    }
 }
