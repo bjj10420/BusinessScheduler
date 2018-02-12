@@ -108,6 +108,7 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         if(scheduleListForADay == null) return;
 
         for(Schedule schedule : scheduleListForADay){
+
             Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getDate()));
             Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getFromTime()));
             Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getToTime()));
