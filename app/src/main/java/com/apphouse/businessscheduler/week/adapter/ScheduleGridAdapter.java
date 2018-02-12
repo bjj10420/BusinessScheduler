@@ -1,6 +1,7 @@
 package com.apphouse.businessscheduler.week.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class ScheduleGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View gridItemView, ViewGroup viewGroup) {
-
+        Log.d("ScheduleGridAdapter", "getView 콜");
         gridItemView = makeGridItemView(position);
         gridItemView.setTag(position);
         return gridItemView;
@@ -70,11 +71,13 @@ public class ScheduleGridAdapter extends BaseAdapter {
     }
 
     private void setNormalItemView(View normalItemView, int position) {
+        if(((TextView) normalItemView.findViewById(R.id.gridItemText)).getText().equals(""))
         ((TextView) normalItemView.findViewById(R.id.gridItemText)).setText(String.valueOf(position));
     }
 
     private boolean isTimePanel(int position) {
         return position % 8 == 0;
     }
+
 
 }

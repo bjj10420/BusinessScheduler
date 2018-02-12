@@ -9,6 +9,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -72,7 +74,12 @@ public class WeekFragment extends Fragment implements WeekContract.View {
 
     private void initScheduleGridView() {
         setScheduleGridViewAdapter();
-        loadScheduleGridViewWithData(binding.calendarView);
+        binding.scheduleGridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                loadScheduleGridViewWithData(binding.calendarView);
+            }
+        });
     }
 
     private void setScheduleGridViewAdapter() {
@@ -107,8 +114,7 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     private void fillSchedulesForAday(ArrayList<Schedule> scheduleListForADay, int beginIndex) {
         if(scheduleListForADay == null) return;
 
-        for(Schedule schedule : scheduleListForADay){
-
+        for(Schedule schedule : scheduleListForADay) {
             Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getDate()));
             Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getFromTime()));
             Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getToTime()));
@@ -116,8 +122,11 @@ public class WeekFragment extends Fragment implements WeekContract.View {
             String fromTime = schedule.getFromTime();
             String toTime = schedule.getToTime();
             int [] theGridIndexes = findGridIndexes(beginIndex, fromTime, toTime);
-//            binding.scheduleGridView.getChildAt(theGridIndexes);
+            setGridViewsContents(theGridIndexes, schedule.getScheduleName());
         }
+
+//        binding.scheduleGridView.
+//        binding.scheduleGridView.setAdapter(new ScheduleGridAdapter(getContext()));
     }
 
     private int[] findGridIndexes(int beginIndex, String fromTime, String toTime) {
@@ -129,6 +138,19 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         }
         return indexes;
     }
+
+    private void setGridViewsContents(int[] theGridIndexes, String scheduleName) {
+        for(int gridIndex : theGridIndexes){
+            Log.d("이게 제대로 맞긴합니까?",
+                    String.valueOf((binding.scheduleGridView.getChildAt(gridIndex)
+                    )));
+            ((TextView)binding.scheduleGridView.getChildAt(gridIndex).findViewById(R.id.gridItemText)).setText(scheduleName);
+        }
+
+//        ((BaseAdapter)binding.scheduleGridView.getAdapter()).notifyDataSetChanged();
+
+    }
+
 
     @SuppressLint("LongLogTag")
     private ArrayList<Schedule> getScheduleDataForIndex(Calendar newCalendar, int index) {

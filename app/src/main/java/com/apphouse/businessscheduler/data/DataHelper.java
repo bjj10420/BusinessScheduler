@@ -32,7 +32,7 @@ public class DataHelper {
         schedule0.setTime("05:00 ~ 10:00");
         schedule0.setFromTime("5");
         schedule0.setToTime("6");
-        schedule0.setDate("20180207");
+        schedule0.setDate("20180213");
         schedule0.setMemo("Hello");
         dbHelper.insertSchedule(schedule0);
 
@@ -42,7 +42,7 @@ public class DataHelper {
         schedule.setTime("05:00 ~ 10:00");
         schedule.setFromTime("5");
         schedule.setToTime("8");
-        schedule.setDate("20180208");
+        schedule.setDate("20180214");
         schedule.setMemo("Hello");
         dbHelper.insertSchedule(schedule);
 
@@ -52,7 +52,7 @@ public class DataHelper {
         schedule2.setTime("05:00 ~ 10:00");
         schedule2.setFromTime("3");
         schedule2.setToTime("9");
-        schedule2.setDate("20180210");
+        schedule2.setDate("20180215");
         schedule2.setMemo("Hello");
         dbHelper.insertSchedule(schedule2);
 
