@@ -40,11 +40,9 @@ public class ScheduleGridAdapter extends BaseAdapter {
 
     private void fillGridContentHashMapForADay(ArrayList<Schedule> scheduleListForADay, int beginIndex) {
         for (Schedule schedule : scheduleListForADay) {
-            Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getScheduleName()));
             String fromTime = schedule.getFromTime();
             String toTime = schedule.getToTime();
             int[] theGridIndexes = findGridIndexes(beginIndex, fromTime, toTime);
-//            setGridViewsContents(theGridIndexes, schedule.getScheduleName());
             saveGridContentsInIndexes(theGridIndexes, schedule.getScheduleName());
         }
     }
@@ -123,14 +121,19 @@ public class ScheduleGridAdapter extends BaseAdapter {
     }
 
     private void setNormalItemView(View normalItemView, int position) {
-        if(isDataColumn(position)) {
-
-            ((TextView) normalItemView.findViewById(R.id.gridItemText)).setText(String.valueOf(position));
+        if(isDataColumn(position) && isGridWithSchedule(position)) {
+            Log.d("그리드 컨텐츠 해쉬맵 테스트", String.valueOf(gridContentHashMap.get(position)));
+            ((TextView) normalItemView.
+                    findViewById(R.id.gridItemText)).setText(String.valueOf(gridContentHashMap.get(position).get(0)));
         }
     }
 
     private boolean isDataColumn(int position) {
         return  columnIndexesWithSchedule.containsKey(getColumnFromPosition(position));
+    }
+
+    private boolean isGridWithSchedule(int position) {
+        return gridContentHashMap.containsKey(position);
     }
 
     // 칼럼의 인덱스는 맨왼쪽의 시간칼럼을 제외하고나서부터 0으로 시작
