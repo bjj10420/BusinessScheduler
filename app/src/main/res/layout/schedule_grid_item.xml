@@ -8,5 +8,7 @@
         android:id="@+id/gridItemText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center_horizontal|bottom" />
+        android:gravity="center_horizontal|bottom"
+        android:textSize="10dp"
+        />
 </android.support.constraint.ConstraintLayout>

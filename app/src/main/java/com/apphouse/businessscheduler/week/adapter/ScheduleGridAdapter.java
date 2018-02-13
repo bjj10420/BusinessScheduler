@@ -122,10 +122,12 @@ public class ScheduleGridAdapter extends BaseAdapter {
 
     private void setNormalItemView(View normalItemView, int position) {
         if(isDataColumn(position) && isGridWithSchedule(position)) {
-            Log.d("그리드 컨텐츠 해쉬맵 테스트", String.valueOf(gridContentHashMap.get(position)));
             ((TextView) normalItemView.
                     findViewById(R.id.gridItemText)).setText(String.valueOf(gridContentHashMap.get(position).get(0)));
         }
+        else
+            ((TextView) normalItemView.
+                    findViewById(R.id.gridItemText)).setText(String.valueOf(position));
     }
 
     private boolean isDataColumn(int position) {
