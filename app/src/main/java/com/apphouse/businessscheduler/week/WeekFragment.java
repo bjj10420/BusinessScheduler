@@ -58,31 +58,20 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         initScheduleGridView();
     }
 
-    private void initEvent() {
-        initCalendarViewEvent();
-    }
-
-    private void initCalendarViewEvent() {
-        binding.calendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
-            @Override
-            public void onMonthChanged(MaterialCalendarView calendarView, CalendarDay date) {
-                presenter.reloadCurrentPageData(calendarView, date);
-            }
-        });
+    @SuppressLint("LongLogTag")
+    private void initCalendarView(MaterialCalendarView calendarView) {
+        int calendarViewCellHeight = 30;
+        calendarView.setShowOtherDates(MaterialCalendarView.SHOW_NONE);
+        calendarView.setTileHeightDp(calendarViewCellHeight);
     }
 
     private void initScheduleGridView() {
-        initScheduleGridViewAdapter();
         initScheduleGridData();
+        initScheduleGridViewAdapter();
     }
 
     private void initScheduleGridData() {
-        binding.scheduleGridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                loadScheduleGridViewWithData(binding.calendarView);
-            }
-        });
+        loadScheduleGridViewWithData(binding.calendarView);
     }
 
     private void initScheduleGridViewAdapter() {
@@ -100,33 +89,27 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         return timePanleBox;
     }
 
-    @SuppressLint("LongLogTag")
-    private void initCalendarView(MaterialCalendarView calendarView) {
-        int calendarViewCellHeight = 30;
-        calendarView.setShowOtherDates(MaterialCalendarView.SHOW_NONE);
-        calendarView.setTileHeightDp(calendarViewCellHeight);
-    }
 
     private void loadScheduleGridViewWithData(MaterialCalendarView calendarView) {
         Calendar newCalendar = calendarView.getCurrentDate().getCalendar();
-        for(int i = 0; i <= 6; i++){
+        for (int i = 0; i <= 6; i++) {
             ArrayList<Schedule> scheduleListForADay = getScheduleDataForIndex(newCalendar, i);
-            fillSchedulesForAday(scheduleListForADay, i+1);
+            fillSchedulesForAday(scheduleListForADay, i + 1);
         }
     }
 
     private void fillSchedulesForAday(ArrayList<Schedule> scheduleListForADay, int beginIndex) {
 
-        if(scheduleListForADay == null) return;
+        if (scheduleListForADay == null) return;
 
-        for(Schedule schedule : scheduleListForADay) {
+        for (Schedule schedule : scheduleListForADay) {
             Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getDate()));
             Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getFromTime()));
             Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getToTime()));
             Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getScheduleName()));
             String fromTime = schedule.getFromTime();
             String toTime = schedule.getToTime();
-            int [] theGridIndexes = findGridIndexes(beginIndex, fromTime, toTime);
+            int[] theGridIndexes = findGridIndexes(beginIndex, fromTime, toTime);
             setGridViewsContents(theGridIndexes, schedule.getScheduleName());
         }
     }
@@ -142,14 +125,13 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     }
 
     private void setGridViewsContents(int[] theGridIndexes, String scheduleName) {
-        for(int gridIndex : theGridIndexes){
+        for (int gridIndex : theGridIndexes) {
             Log.d("이게 제대로 맞긴합니까?",
                     String.valueOf((binding.scheduleGridView.getChildAt(gridIndex)
                     )));
-            ((TextView)binding.scheduleGridView.getChildAt(gridIndex).findViewById(R.id.gridItemText)).setText(scheduleName);
+            ((TextView) binding.scheduleGridView.getChildAt(gridIndex).findViewById(R.id.gridItemText)).setText(scheduleName);
         }
     }
-
 
     @SuppressLint("LongLogTag")
     private ArrayList<Schedule> getScheduleDataForIndex(Calendar newCalendar, int index) {
@@ -159,6 +141,19 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         ArrayList<Schedule> schedulesForAday = dataHelper.getSchedulesForADay(newCalendar.getTime().getDate(), selectedDate);
         newCalendar.add(Calendar.DAY_OF_WEEK, -index);
         return schedulesForAday;
+    }
+
+    private void initEvent() {
+        initCalendarViewEvent();
+    }
+
+    private void initCalendarViewEvent() {
+        binding.calendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
+            @Override
+            public void onMonthChanged(MaterialCalendarView calendarView, CalendarDay date) {
+                presenter.reloadCurrentPageData(calendarView, date);
+            }
+        });
     }
 
     @Override
