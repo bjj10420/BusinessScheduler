@@ -94,42 +94,12 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         return schedulesForAday;
     }
 
-    private void fillSchedulesForAday(ArrayList<Schedule> scheduleListForADay, int beginIndex) {
-
-        if (scheduleListForADay == null) return;
-
-        for (Schedule schedule : scheduleListForADay) {
-            Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getScheduleName()));
-            String fromTime = schedule.getFromTime();
-            String toTime = schedule.getToTime();
-            int[] theGridIndexes = findGridIndexes(beginIndex, fromTime, toTime);
-            setGridViewsContents(theGridIndexes, schedule.getScheduleName());
-        }
-    }
-
     private void saveColumIndexWithSchedules(ArrayList<Schedule> scheduleListForADay, int index, HashMap<Integer, ArrayList<Schedule>> columIndexesWithSchedule) {
         if(scheduleListForADay != null)
             columIndexesWithSchedule.put(index, scheduleListForADay);
     }
 
-    private int[] findGridIndexes(int beginIndex, String fromTime, String toTime) {
-        int[] indexes = new int[Integer.parseInt(toTime) - Integer.parseInt(fromTime)];
-        for (int j = 0; j < indexes.length; j++) {
-            int theIndex = beginIndex + ((Integer.parseInt(fromTime)) * 8) + (j * 8);
-            Log.d("인덱스값을 확인해보아요", String.valueOf(theIndex));
-            indexes[j] = theIndex;
-        }
-        return indexes;
-    }
 
-    private void setGridViewsContents(int[] theGridIndexes, String scheduleName) {
-        for (int gridIndex : theGridIndexes) {
-            Log.d("이게 제대로 맞긴합니까?",
-                    String.valueOf((binding.scheduleGridView.getChildAt(gridIndex)
-                    )));
-            ((TextView) binding.scheduleGridView.getChildAt(gridIndex).findViewById(R.id.gridItemText)).setText(scheduleName);
-        }
-    }
 
     private void initScheduleGridViewAdapter(HashMap<Integer, ArrayList<Schedule>> columIndexesWithSchedule) {
         adapter = new ScheduleGridAdapter(getContext(), columIndexesWithSchedule);

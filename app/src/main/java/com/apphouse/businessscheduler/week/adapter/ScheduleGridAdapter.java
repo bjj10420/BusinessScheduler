@@ -84,8 +84,10 @@ public class ScheduleGridAdapter extends BaseAdapter {
     }
 
     private void setNormalItemView(View normalItemView, int position) {
-        if(isDataColumn(position))
-        ((TextView) normalItemView.findViewById(R.id.gridItemText)).setText(String.valueOf(position));
+        if(isDataColumn(position)) {
+
+            ((TextView) normalItemView.findViewById(R.id.gridItemText)).setText(String.valueOf(position));
+        }
     }
 
     private boolean isDataColumn(int position) {
@@ -97,7 +99,29 @@ public class ScheduleGridAdapter extends BaseAdapter {
         return  (position - 1) % 8;
     }
 
-    public void setSetOnce(boolean setOnce) {
-        isSetOnce = setOnce;
+    private void fillSchedulesForAday(ArrayList<Schedule> scheduleListForADay, int beginIndex) {
+        for (Schedule schedule : scheduleListForADay) {
+            Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getScheduleName()));
+            String fromTime = schedule.getFromTime();
+            String toTime = schedule.getToTime();
+            int[] theGridIndexes = findGridIndexes(beginIndex, fromTime, toTime);
+            setGridViewsContents(theGridIndexes, schedule.getScheduleName());
+        }
+    }
+
+    private int[] findGridIndexes(int beginIndex, String fromTime, String toTime) {
+        int[] indexes = new int[Integer.parseInt(toTime) - Integer.parseInt(fromTime)];
+        for (int j = 0; j < indexes.length; j++) {
+            int theIndex = beginIndex + ((Integer.parseInt(fromTime)) * 8) + (j * 8);
+            Log.d("인덱스값을 확인해보아요", String.valueOf(theIndex));
+            indexes[j] = theIndex;
+        }
+        return indexes;
+    }
+
+    private void setGridViewsContents(int[] theGridIndexes, String scheduleName) {
+        for (int gridIndex : theGridIndexes) {
+//            ((TextView) binding.scheduleGridView.getChildAt(gridIndex).findViewById(R.id.gridItemText)).setText(scheduleName);
+        }
     }
 }
