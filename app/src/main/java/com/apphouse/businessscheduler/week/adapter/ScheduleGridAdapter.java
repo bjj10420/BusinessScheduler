@@ -49,8 +49,8 @@ public class ScheduleGridAdapter extends BaseAdapter {
 
     private void saveGridContentsInIndexes(int[] theGridIndexes, String scheduleName) {
             for(int i = 0; i < theGridIndexes.length; i++) {
-                if(gridContentHashMap.get(i) == null) gridContentHashMap.put(i, new ArrayList<String>());
-                gridContentHashMap.get(i).add(scheduleName);
+                if(gridContentHashMap.get(theGridIndexes[i]) == null) gridContentHashMap.put(theGridIndexes[i], new ArrayList<String>());
+                gridContentHashMap.get(theGridIndexes[i]).add(scheduleName);
             }
     }
 
