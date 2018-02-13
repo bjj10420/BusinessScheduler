@@ -116,6 +116,7 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     }
 
     private void fillSchedulesForAday(ArrayList<Schedule> scheduleListForADay, int beginIndex) {
+
         if(scheduleListForADay == null) return;
 
         for(Schedule schedule : scheduleListForADay) {
