@@ -9,8 +9,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,6 +24,7 @@ import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Locale;
 
 import static com.apphouse.businessscheduler.data.DataHelper.dataHelper;
@@ -35,6 +34,7 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     private WeekContract.Presenter presenter;
     private FragmentWeekBinding binding;
     private ScheduleGridAdapter adapter;
+    private HashSet<Integer> columIndexesWithData;
 
     @SuppressLint("LongLogTag")
     @Override
@@ -43,6 +43,8 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         Log.d("WeekFragment onCreateView", "테스트");
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_week, container, false);
         View fragmentView = binding.getRoot();
+        columIndexesWithData = new HashSet<Integer>();
+
         initView();
         initEvent();
         initPrenter();
@@ -74,28 +76,23 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         loadScheduleGridViewWithData(binding.calendarView);
     }
 
-    private void initScheduleGridViewAdapter() {
-        adapter = new ScheduleGridAdapter(getContext());
-        binding.scheduleGridView.setAdapter(adapter);
-    }
-
-    private View makeTimePanelBox(int time) {
-        TextView timePanleBox = new TextView(getContext());
-        LinearLayout.LayoutParams preViewParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                (int) Util.convertDpToPixel(50));
-        timePanleBox.setGravity(Gravity.CENTER);
-        timePanleBox.setLayoutParams(preViewParams);
-        timePanleBox.setText(time < 10 ? "0" + time : String.valueOf(time));
-        return timePanleBox;
-    }
-
-
     private void loadScheduleGridViewWithData(MaterialCalendarView calendarView) {
         Calendar newCalendar = calendarView.getCurrentDate().getCalendar();
         for (int i = 0; i <= 6; i++) {
             ArrayList<Schedule> scheduleListForADay = getScheduleDataForIndex(newCalendar, i);
             fillSchedulesForAday(scheduleListForADay, i + 1);
+            saveColumIndex(i);
         }
+    }
+
+    @SuppressLint("LongLogTag")
+    private ArrayList<Schedule> getScheduleDataForIndex(Calendar newCalendar, int index) {
+        newCalendar.add(Calendar.DAY_OF_WEEK, index);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        String selectedDate = formatter.format(newCalendar.getTime());
+        ArrayList<Schedule> schedulesForAday = dataHelper.getSchedulesForADay(newCalendar.getTime().getDate(), selectedDate);
+        newCalendar.add(Calendar.DAY_OF_WEEK, -index);
+        return schedulesForAday;
     }
 
     private void fillSchedulesForAday(ArrayList<Schedule> scheduleListForADay, int beginIndex) {
@@ -112,6 +109,10 @@ public class WeekFragment extends Fragment implements WeekContract.View {
             int[] theGridIndexes = findGridIndexes(beginIndex, fromTime, toTime);
             setGridViewsContents(theGridIndexes, schedule.getScheduleName());
         }
+    }
+
+    private void saveColumIndex(int index) {
+        columIndexesWithData.add(index);
     }
 
     private int[] findGridIndexes(int beginIndex, String fromTime, String toTime) {
@@ -133,14 +134,19 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         }
     }
 
-    @SuppressLint("LongLogTag")
-    private ArrayList<Schedule> getScheduleDataForIndex(Calendar newCalendar, int index) {
-        newCalendar.add(Calendar.DAY_OF_WEEK, index);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
-        String selectedDate = formatter.format(newCalendar.getTime());
-        ArrayList<Schedule> schedulesForAday = dataHelper.getSchedulesForADay(newCalendar.getTime().getDate(), selectedDate);
-        newCalendar.add(Calendar.DAY_OF_WEEK, -index);
-        return schedulesForAday;
+    private void initScheduleGridViewAdapter() {
+        adapter = new ScheduleGridAdapter(getContext());
+        binding.scheduleGridView.setAdapter(adapter);
+    }
+
+    private View makeTimePanelBox(int time) {
+        TextView timePanleBox = new TextView(getContext());
+        LinearLayout.LayoutParams preViewParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                (int) Util.convertDpToPixel(50));
+        timePanleBox.setGravity(Gravity.CENTER);
+        timePanleBox.setLayoutParams(preViewParams);
+        timePanleBox.setText(time < 10 ? "0" + time : String.valueOf(time));
+        return timePanleBox;
     }
 
     private void initEvent() {
