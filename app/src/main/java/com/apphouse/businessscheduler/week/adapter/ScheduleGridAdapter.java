@@ -2,7 +2,6 @@ package com.apphouse.businessscheduler.week.adapter;
 
 import android.content.Context;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +13,29 @@ import com.apphouse.businessscheduler.vo.Schedule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class ScheduleGridAdapter extends BaseAdapter {
 
-    private final HashMap<Integer, ArrayList<Schedule>> columIndexesWithSchedule;
+    private  HashMap<Integer, ArrayList<Schedule>> columnIndexesWithSchedule;
+    private  HashMap<Integer, ArrayList<String>> gridContentHashMap;
+
     LayoutInflater li;
-    boolean isSetOnce = false;
 
     public ScheduleGridAdapter(Context context, HashMap<Integer, ArrayList<Schedule>> columIndexesWithSchedule) {
+        initField(context, columIndexesWithSchedule);
+        prepareGridContent();
+    }
+
+    private void initField(Context context, HashMap<Integer, ArrayList<Schedule>> columIndexesWithSchedule) {
         this.li = LayoutInflater.from(context);
-        this.columIndexesWithSchedule = columIndexesWithSchedule;
+        this.columnIndexesWithSchedule = columIndexesWithSchedule;
+        this.gridContentHashMap = new HashMap<Integer, ArrayList<String>>();
+    }
+
+    private void prepareGridContent() {
+        for(Integer columnIndex : columnIndexesWithSchedule.keySet()){
+            fillSchedulesForAday(columnIndexesWithSchedule.get(columnIndex), columnIndex + 1);
+        }
     }
 
     @Override
@@ -91,7 +102,7 @@ public class ScheduleGridAdapter extends BaseAdapter {
     }
 
     private boolean isDataColumn(int position) {
-        return  columIndexesWithSchedule.containsKey(getColumnFromPosition(position));
+        return  columnIndexesWithSchedule.containsKey(getColumnFromPosition(position));
     }
 
     // 칼럼의 인덱스는 맨왼쪽의 시간칼럼을 제외하고나서부터 0으로 시작
@@ -105,7 +116,7 @@ public class ScheduleGridAdapter extends BaseAdapter {
             String fromTime = schedule.getFromTime();
             String toTime = schedule.getToTime();
             int[] theGridIndexes = findGridIndexes(beginIndex, fromTime, toTime);
-            setGridViewsContents(theGridIndexes, schedule.getScheduleName());
+//            setGridViewsContents(theGridIndexes, schedule.getScheduleName());
         }
     }
 
