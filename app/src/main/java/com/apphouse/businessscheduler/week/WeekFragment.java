@@ -24,7 +24,7 @@ import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Locale;
 
 import static com.apphouse.businessscheduler.data.DataHelper.dataHelper;
@@ -66,20 +66,22 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     }
 
     private void initScheduleGridView() {
-        HashSet<Integer> columIndexesWithSchedule = checkAllSchedulesAndSaveIndexes(binding.calendarView);
+        HashMap<Integer, ArrayList<Schedule>> columIndexesWithSchedule = checkAllSchedulesAndSaveIndexes(binding.calendarView);
         initScheduleGridViewAdapter(columIndexesWithSchedule);
     }
 
-    private HashSet<Integer> checkAllSchedulesAndSaveIndexes(MaterialCalendarView calendarView) {
+    private HashMap<Integer, ArrayList<Schedule>> checkAllSchedulesAndSaveIndexes(MaterialCalendarView calendarView) {
         Calendar newCalendar = calendarView.getCurrentDate().getCalendar();
-        HashSet<Integer> columnIndexesWithSchedule = new HashSet<Integer>();
+        HashMap<Integer, ArrayList<Schedule>> columnIndexesWithSchedule = new HashMap<Integer, ArrayList<Schedule>>();
+        findColumnIndexesWithSchedule(newCalendar, columnIndexesWithSchedule);
+        return columnIndexesWithSchedule;
+    }
 
+    private void findColumnIndexesWithSchedule(Calendar newCalendar, HashMap<Integer, ArrayList<Schedule>> columnIndexesWithSchedule) {
         for (int columnIndex = 0; columnIndex <= 6; columnIndex++) {
             ArrayList<Schedule> scheduleListForADay = getScheduleDataForIndex(newCalendar, columnIndex);
-            saveColumIndex(scheduleListForADay, columnIndex, columnIndexesWithSchedule);
+            saveColumIndexWithSchedules(scheduleListForADay, columnIndex, columnIndexesWithSchedule);
         }
-
-        return columnIndexesWithSchedule;
     }
 
     @SuppressLint("LongLogTag")
@@ -105,9 +107,9 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         }
     }
 
-    private void saveColumIndex(ArrayList<Schedule> scheduleListForADay, int index, HashSet<Integer> columIndexesWithSchedule) {
+    private void saveColumIndexWithSchedules(ArrayList<Schedule> scheduleListForADay, int index, HashMap<Integer, ArrayList<Schedule>> columIndexesWithSchedule) {
         if(scheduleListForADay != null)
-            columIndexesWithSchedule.add(index);
+            columIndexesWithSchedule.put(index, scheduleListForADay);
     }
 
     private int[] findGridIndexes(int beginIndex, String fromTime, String toTime) {
@@ -129,7 +131,7 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         }
     }
 
-    private void initScheduleGridViewAdapter(HashSet<Integer> columIndexesWithSchedule) {
+    private void initScheduleGridViewAdapter(HashMap<Integer, ArrayList<Schedule>> columIndexesWithSchedule) {
         adapter = new ScheduleGridAdapter(getContext(), columIndexesWithSchedule);
         binding.scheduleGridView.setAdapter(adapter);
     }

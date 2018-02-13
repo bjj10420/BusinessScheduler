@@ -10,19 +10,21 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.apphouse.businessscheduler.R;
+import com.apphouse.businessscheduler.vo.Schedule;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class ScheduleGridAdapter extends BaseAdapter {
 
+    private final HashMap<Integer, ArrayList<Schedule>> columIndexesWithSchedule;
     LayoutInflater li;
     boolean isSetOnce = false;
-    private SparseArray<View> views;
 
-
-    public ScheduleGridAdapter(Context context, HashSet<Integer> columIndexesWithSchedule) {
+    public ScheduleGridAdapter(Context context, HashMap<Integer, ArrayList<Schedule>> columIndexesWithSchedule) {
         this.li = LayoutInflater.from(context);
-        views = new SparseArray<>();
+        this.columIndexesWithSchedule = columIndexesWithSchedule;
     }
 
     @Override
@@ -43,13 +45,8 @@ public class ScheduleGridAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View gridItemView, ViewGroup viewGroup) {
         Log.d("getView콜", "position = " + position + " view = " + gridItemView);
-        if(gridItemView == null) {
             gridItemView = makeGridItemView(position);
             gridItemView.setTag(position);
-            views.put(position, gridItemView);
-        }
-        else
-            gridItemView = views.get(position);
 
         return gridItemView;
     }
@@ -61,6 +58,10 @@ public class ScheduleGridAdapter extends BaseAdapter {
         else
             gridItemView = makeNormalItemView(position);
         return gridItemView;
+    }
+
+    private boolean isTimePanel(int position) {
+        return position % 8 == 0;
     }
 
     private View makeGridTimePanelItemView(int position) {
@@ -83,12 +84,17 @@ public class ScheduleGridAdapter extends BaseAdapter {
     }
 
     private void setNormalItemView(View normalItemView, int position) {
-        if(((TextView) normalItemView.findViewById(R.id.gridItemText)).getText().equals(""))
+        if(isDataColumn(position))
         ((TextView) normalItemView.findViewById(R.id.gridItemText)).setText(String.valueOf(position));
     }
 
-    private boolean isTimePanel(int position) {
-        return position % 8 == 0;
+    private boolean isDataColumn(int position) {
+        return  columIndexesWithSchedule.containsKey(getColumnFromPosition(position));
+    }
+
+    // 칼럼의 인덱스는 맨왼쪽의 시간칼럼을 제외하고나서부터 0으로 시작
+    private Integer getColumnFromPosition(int position) {
+        return  (position - 1) % 8;
     }
 
     public void setSetOnce(boolean setOnce) {
