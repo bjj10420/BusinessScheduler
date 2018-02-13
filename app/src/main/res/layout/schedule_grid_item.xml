@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="#c8c8c8">
+    android:background="#c8c8c8"
+    android:orientation="vertical"
+    android:gravity="center_horizontal|bottom"
+    >
 
     <TextView
         android:id="@+id/gridItemText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_horizontal|bottom"
-        android:textSize="10dp"
-        />
-</android.support.constraint.ConstraintLayout>
+        android:textSize="10dp" />
+</LinearLayout>

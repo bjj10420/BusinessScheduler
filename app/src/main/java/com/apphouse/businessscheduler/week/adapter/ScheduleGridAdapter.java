@@ -2,13 +2,16 @@ package com.apphouse.businessscheduler.week.adapter;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.apphouse.businessscheduler.R;
+import com.apphouse.businessscheduler.util.Util;
 import com.apphouse.businessscheduler.vo.Schedule;
 
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ public class ScheduleGridAdapter extends BaseAdapter {
     private  HashMap<Integer, ArrayList<String>> gridContentHashMap;
 
     LayoutInflater li;
+    private Context context;
 
     public ScheduleGridAdapter(Context context, HashMap<Integer, ArrayList<Schedule>> columIndexesWithSchedule) {
         initField(context, columIndexesWithSchedule);
@@ -27,6 +31,7 @@ public class ScheduleGridAdapter extends BaseAdapter {
     }
 
     private void initField(Context context, HashMap<Integer, ArrayList<Schedule>> columIndexesWithSchedule) {
+        this.context = context;
         this.li = LayoutInflater.from(context);
         this.columnIndexesWithSchedule = columIndexesWithSchedule;
         this.gridContentHashMap = new HashMap<Integer, ArrayList<String>>();
@@ -121,13 +126,46 @@ public class ScheduleGridAdapter extends BaseAdapter {
     }
 
     private void setNormalItemView(View normalItemView, int position) {
-        if(isDataColumn(position) && isGridWithSchedule(position)) {
-            ((TextView) normalItemView.
-                    findViewById(R.id.gridItemText)).setText(String.valueOf(gridContentHashMap.get(position).get(0)));
-        }
+        if(isDataColumn(position) && isGridWithSchedule(position))
+            setGridContent(normalItemView, position);
         else
             ((TextView) normalItemView.
                     findViewById(R.id.gridItemText)).setText(String.valueOf(position));
+    }
+
+    private void setGridContent(View normalItemView, int position) {
+        if(isGridContentSingle(position))
+            setSingleGridContent(normalItemView, position);
+        else
+            setMuiltiGridContents(normalItemView, position);
+    }
+
+    private void setSingleGridContent(View normalItemView, int position) {
+        ((TextView) normalItemView.
+                findViewById(R.id.gridItemText)).setText(String.valueOf(gridContentHashMap.get(position).get(0)));
+    }
+
+    private void setMuiltiGridContents(View normalItemView, int position) {
+        normalItemView.findViewById(R.id.gridItemText).setVisibility(View.GONE);
+        for(String gridContent : gridContentHashMap.get(position)) {
+            TextView tv = new TextView(context);
+            setTv(tv, gridContent);
+              ((LinearLayout)normalItemView).addView(tv);
+        }
+    }
+
+    private void setTv(TextView tv, String gridContent) {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        tv.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
+        tv.setLayoutParams(params);
+        tv.setTextSize(Util.convertDpToPixel(2));
+        tv.setText(gridContent);
+    }
+
+    private boolean isGridContentSingle(int position) {
+        return  gridContentHashMap.get(position).size() == 1;
     }
 
     private boolean isDataColumn(int position) {
@@ -143,11 +181,4 @@ public class ScheduleGridAdapter extends BaseAdapter {
         return  (position - 1) % 8;
     }
 
-
-
-    private void setGridViewsContents(int[] theGridIndexes, String scheduleName) {
-        for (int gridIndex : theGridIndexes) {
-//            ((TextView) binding.scheduleGridView.getChildAt(gridIndex).findViewById(R.id.gridItemText)).setText(scheduleName);
-        }
-    }
 }
