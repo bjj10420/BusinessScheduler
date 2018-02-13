@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.apphouse.businessscheduler.R;
 
+import java.util.HashSet;
+
 public class ScheduleGridAdapter extends BaseAdapter {
 
     LayoutInflater li;
@@ -18,7 +20,7 @@ public class ScheduleGridAdapter extends BaseAdapter {
     private SparseArray<View> views;
 
 
-    public ScheduleGridAdapter(Context context) {
+    public ScheduleGridAdapter(Context context, HashSet<Integer> columIndexesWithSchedule) {
         this.li = LayoutInflater.from(context);
         views = new SparseArray<>();
     }

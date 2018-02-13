@@ -34,7 +34,6 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     private WeekContract.Presenter presenter;
     private FragmentWeekBinding binding;
     private ScheduleGridAdapter adapter;
-    private HashSet<Integer> columIndexesWithData;
 
     @SuppressLint("LongLogTag")
     @Override
@@ -43,7 +42,6 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         Log.d("WeekFragment onCreateView", "테스트");
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_week, container, false);
         View fragmentView = binding.getRoot();
-        columIndexesWithData = new HashSet<Integer>();
 
         initView();
         initEvent();
@@ -68,21 +66,20 @@ public class WeekFragment extends Fragment implements WeekContract.View {
     }
 
     private void initScheduleGridView() {
-        initScheduleGridData();
-        initScheduleGridViewAdapter();
+        HashSet<Integer> columIndexesWithSchedule = checkAllSchedulesAndSaveIndexes(binding.calendarView);
+        initScheduleGridViewAdapter(columIndexesWithSchedule);
     }
 
-    private void initScheduleGridData() {
-        loadScheduleGridViewWithData(binding.calendarView);
-    }
-
-    private void loadScheduleGridViewWithData(MaterialCalendarView calendarView) {
+    private HashSet<Integer> checkAllSchedulesAndSaveIndexes(MaterialCalendarView calendarView) {
         Calendar newCalendar = calendarView.getCurrentDate().getCalendar();
-        for (int i = 0; i <= 6; i++) {
-            ArrayList<Schedule> scheduleListForADay = getScheduleDataForIndex(newCalendar, i);
-            fillSchedulesForAday(scheduleListForADay, i + 1);
-            saveColumIndex(i);
+        HashSet<Integer> columnIndexesWithSchedule = new HashSet<Integer>();
+
+        for (int columnIndex = 0; columnIndex <= 6; columnIndex++) {
+            ArrayList<Schedule> scheduleListForADay = getScheduleDataForIndex(newCalendar, columnIndex);
+            saveColumIndex(scheduleListForADay, columnIndex, columnIndexesWithSchedule);
         }
+
+        return columnIndexesWithSchedule;
     }
 
     @SuppressLint("LongLogTag")
@@ -100,9 +97,6 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         if (scheduleListForADay == null) return;
 
         for (Schedule schedule : scheduleListForADay) {
-            Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getDate()));
-            Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getFromTime()));
-            Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getToTime()));
             Log.d("스케쥴좀 확인하지요", String.valueOf(schedule.getScheduleName()));
             String fromTime = schedule.getFromTime();
             String toTime = schedule.getToTime();
@@ -111,8 +105,9 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         }
     }
 
-    private void saveColumIndex(int index) {
-        columIndexesWithData.add(index);
+    private void saveColumIndex(ArrayList<Schedule> scheduleListForADay, int index, HashSet<Integer> columIndexesWithSchedule) {
+        if(scheduleListForADay != null)
+            columIndexesWithSchedule.add(index);
     }
 
     private int[] findGridIndexes(int beginIndex, String fromTime, String toTime) {
@@ -134,8 +129,8 @@ public class WeekFragment extends Fragment implements WeekContract.View {
         }
     }
 
-    private void initScheduleGridViewAdapter() {
-        adapter = new ScheduleGridAdapter(getContext());
+    private void initScheduleGridViewAdapter(HashSet<Integer> columIndexesWithSchedule) {
+        adapter = new ScheduleGridAdapter(getContext(), columIndexesWithSchedule);
         binding.scheduleGridView.setAdapter(adapter);
     }
 
